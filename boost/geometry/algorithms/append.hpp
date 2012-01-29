@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -178,14 +178,18 @@ struct append_range<polygon_tag, Polygon, Range>
 
 
 // Default: append a range (or linestring or ring or whatever) to any geometry
-template <typename TagRangeOrPoint, typename Geometry, typename RangeOrPoint>
+template
+<
+    typename Geometry, typename RangeOrPoint,
+    typename TagRangeOrPoint = typename tag<RangeOrPoint>::type
+>
 struct append
     : splitted_dispatch::append_range<typename tag<Geometry>::type, Geometry, RangeOrPoint>
 {};
 
 // Specialization for point to append a point to any geometry
 template <typename Geometry, typename RangeOrPoint>
-struct append<point_tag, Geometry, RangeOrPoint>
+struct append<Geometry, RangeOrPoint, point_tag>
     : splitted_dispatch::append_point<typename tag<Geometry>::type, Geometry, RangeOrPoint>
 {};
 
@@ -217,7 +221,6 @@ inline void append(Geometry& geometry, RangeOrPoint const& range_or_point,
 
     dispatch::append
         <
-            typename tag<RangeOrPoint>::type,
             Geometry,
             RangeOrPoint
         >::apply(geometry, range_or_point, ring_index, multi_index);

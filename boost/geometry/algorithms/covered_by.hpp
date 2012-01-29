@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -170,7 +170,7 @@ inline bool covered_by(Geometry1 const& geometry1, Geometry2 const& geometry2)
 \param geometry1 \param_geometry geometry which might be covered_by the second geometry
 \param geometry2 \param_geometry which might contain the first geometry
 \param strategy strategy to be used
-\return true if geometry1 is completely contained covered_by geometry2,
+\return true if geometry1 is inside of or on the border of geometry2,
     else false
 
 \qbk{distinguish,with strategy}
