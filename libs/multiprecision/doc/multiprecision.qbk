@@ -21,20 +21,25 @@
 [include html4_symbols.qbk]
 [import ../example/gmp_snips.cpp]
 [import ../example/mpfr_snips.cpp]
+[import ../example/mpfi_snips.cpp]
+[import ../example/float128_snips.cpp]
 [import ../example/cpp_dec_float_snips.cpp]
 [import ../example/tommath_snips.cpp]
 [import ../example/cpp_int_snips.cpp]
 [import ../example/random_snips.cpp]
 [import ../example/safe_prime.cpp]
 [import ../example/mixed_integer_arithmetic.cpp]
+[import ../example/logged_adaptor.cpp]
 
 [template mpfr[] [@http://www.mpfr.org MPFR]]
+[template mpfi[] [@http://perso.ens-lyon.fr/nathalie.revol/software.html MPFI]]
 [template gmp[] [@http://gmplib.org GMP]]
 [template mpf_class[] [@http://gmplib.org/manual/C_002b_002b-Interface-Floats.html#C_002b_002b-Interface-Floats mpf_class]]
 [template mpfr_class[] [@http://math.berkeley.edu/~wilken/code/gmpfrxx/ mpfr_class]]
 [template mpreal[] [@http://www.holoborodko.com/pavel/mpfr/ mpreal]]
 [template mpir[] [@http://mpir.org/ MPIR]]
 [template tommath[] [@http://libtom.org/?page=features&newsitems=5&whatfile=ltm libtommath]]
+[template quadmath[] [@http://gcc.gnu.org/onlinedocs/libquadmath/ libquadmath]]
 
 [template super[x]'''<superscript>'''[x]'''</superscript>''']
 [template sub[x]'''<subscript>'''[x]'''</subscript>''']
@@ -406,7 +411,7 @@ The following back-ends provide integer arithmetic:
    { static const expression_template_option value = et_off; };
 
    typedef number<cpp_int_backend<> >              cpp_int;    // arbitrary precision integer
-   typedef rational_adapter<cpp_int_backend<> >    cpp_rational_backend;
+   typedef rational_adaptor<cpp_int_backend<> >    cpp_rational_backend;
    typedef number<cpp_rational_backend>            cpp_rational; // arbitrary precision rational number
 
    // Fixed precision unsigned types:
@@ -423,7 +428,7 @@ The following back-ends provide integer arithmetic:
 
    // Over again, but with checking enabled this time:
    typedef number<cpp_int_backend<0, 0, signed_magnitude, checked> >                 checked_cpp_int;
-   typedef rational_adapter<cpp_int_backend<0, 0, signed_magnitude, checked> >       checked_cpp_rational_backend;
+   typedef rational_adaptor<cpp_int_backend<0, 0, signed_magnitude, checked> >       checked_cpp_rational_backend;
    typedef number<cpp_rational_backend>                                              checked_cpp_rational;
 
    // Checked fixed precision unsigned types:
@@ -520,7 +525,10 @@ internally `cpp_int_backend` switches to a "trivial" implementation where it is 
 integer.  Note that it will still be slightly slower than a bare native integer, as it emulates a 
 signed-magnitude representation rather than simply using the platforms native sign representation: this ensures
 there is no step change in behavior as a cpp_int grows in size.
- 
+* Fixed precision `cpp_int`'s have some support for `constexpr` values and user-defined literals, see
+[link boost_multiprecision.tut.lits here] for the full description.  For example `0xfffff_cppi1024`
+specifies a 1024-bit integer with the value 0xffff.  This can be used to generate compile time constants that are
+too large to fit into any built in number type.
 
 [h5 Example:]
 
@@ -631,6 +639,7 @@ The following back-ends provide floating point arithmetic:
 [[`cpp_dec_float<N>`][boost/multiprecision/cpp_dec_float.hpp][10][None][Header only, all C++ implementation. Boost licence.][Approximately 2x slower than the [mpfr] or [gmp] libraries.]]
 [[`mpf_float<N>`][boost/multiprecision/gmp.hpp][2][[gmp]][Very fast and efficient back-end.][Dependency on GNU licensed [gmp] library.]]
 [[`mpfr_float<N>`][boost/multiprecision/mpfr.hpp][2][[gmp] and [mpfr]][Very fast and efficient back-end, with its own standard library implementation.][Dependency on GNU licensed [gmp] and [mpfr] libraries.]]
+[[`float128`][boost/multiprecision/float128.hpp][2][Either [quadmath] or the Intel C++ Math library.][Very fast and efficient back-end for 128-bit floating point values (113-bit mantissa, equivalent to FORTRAN's QUAD real)][Depends on the compiler being either recent GCC or Intel C++ versions.]]
 ]
 
 [section:cpp_dec_float cpp_dec_float]
@@ -757,6 +766,7 @@ as a valid floating point number.
 [endsect]
 
 [section:mpfr_float mpfr_float]
+
 `#include <boost/multiprecision/mpfr.hpp>`
 
    namespace boost{ namespace multiprecision{
@@ -838,6 +848,50 @@ as a valid floating point number.
 
 [endsect]
 
+[section:float128 float128]
+
+`#include <boost/multiprecision/float128.hpp>`
+
+   namespace boost{ namespace multiprecision{
+
+   class float128_backend;
+
+   typedef number<float128_backend, et_off>    float128;
+
+   }} // namespaces
+
+The `float128` number type is a very thin wrapper around GCC's `__float128` or Intel's `_Quad` data types
+and provides an real-number type that is a drop-in replacement for the native C++ floating-point types, but with 
+a 113 bit mantissa, and compatible with FORTRAN's 128-bit QUAD real.
+
+All the usual standard library and `numeric_limits` support are available, performance should be equivalent
+to the underlying native types: for example the LINPACK benchmarks for GCC's `__float128` and 
+`boost::multiprecision::float128` both achieved 5.6 MFLOPS[footnote On 64-bit Ubuntu 11.10, GCC-4.8.0, Intel Core 2 Duo T5800.].
+
+As well as the usual conversions from arithmetic and string types, instances of `float128` are
+copy constructible and assignable from GCC's `__float128` and Intel's `_Quad` data types.
+
+It's also possible to access the underlying `__float128` or `_Quad` type via the `data()` member 
+function of `float128_backend`.
+
+Things you should know when using this type:
+
+* Default constructed `float128`s have the value zero.
+* This backend supports rvalue-references and is move-aware, making instantiations of `number` on this backend move aware.
+* It is not possible to round-trip objects of this type to and from a string and get back
+exactly the same value when compiled with Intel's C++ compiler: this is a current limitation of our code.  Round tripping
+when using GCC is possible.
+* Conversion from a string results in a `std::runtime_error` being thrown if the string can not be interpreted 
+as a valid floating point number.
+* Division by zero results in an infinity being produced.
+* Type `float128` can be used as a literal type (constexpr support).
+
+[h5 float128 example:]
+
+[float128_eg]
+
+[endsect]
+
 [section:fp_eg Examples]
 
 [import ../example/floating_point_examples.cpp]
@@ -881,6 +935,143 @@ as a valid floating point number.
 
 [endsect]
 
+[section:interval Interval Number Types]
+
+There is one currently only one interval number type supported - [mpfi].
+
+[section:mpfi mpfi_float]
+
+`#include <boost/multiprecision/mpfi.hpp>`
+
+   namespace boost{ namespace multiprecision{
+
+   template <unsigned Digits10>
+   class mpfi_float_backend;
+
+   typedef number<mpfi_float_backend<50> >    mpfi_float_50;
+   typedef number<mpfi_float_backend<100> >   mpfifloat_100;
+   typedef number<mpfi_float_backend<500> >   mpfifloat_500;
+   typedef number<mpfi_float_backend<1000> >  mpfi_float_1000;
+   typedef number<mpfi_float_backend<0> >     mpfi_float;
+
+   }} // namespaces
+
+The `mpfi_float_backend` type is used in conjunction with `number`: It acts as a thin wrapper around the [mpfi] `mpfi_t`
+to provide an real-number type that is a drop-in replacement for the native C++ floating-point types, but with 
+much greater precision and implementing interval arithmetic.
+
+Type `mpfi_float_backend` can be used at fixed precision by specifying a non-zero `Digits10` template parameter, or
+at variable precision by setting the template argument to zero.  The typedefs mpfi_float_50, mpfi_float_100,
+mpfi_float_500, mpfi_float_1000 provide arithmetic types at 50, 100, 500 and 1000 decimal digits precision
+respectively.  The typedef mpfi_float provides a variable precision type whose precision can be controlled via the
+`number`s member functions.
+
+[note This type only provides `numeric_limits` support when the precision is fixed at compile time.]
+
+As well as the usual conversions from arithmetic and string types, instances of `number<mpfi_float_backend<N> >` are
+copy constructible and assignable from:
+
+* The [mpfi] native type `mpfi_t`.
+* The `number` wrappers around [mpfi] or [mpfr]: `number<mpfi_float_backend<M> >` and `number<mpfr_float<M> >`.
+* There is a two argument constructor taking two `number<mpfr_float<M> >` arguments specifying the interval.
+
+It's also possible to access the underlying `mpfi_t` via the data() member function of `mpfi_float_backend`.
+
+Things you should know when using this type:
+
+* A default constructed `mpfi_float_backend` is set to a NaN (this is the default [mpfi] behavior).
+* No changes are made to [gmp] or [mpfr] global settings, so this type can coexist with existing
+[mpfr] or [gmp] code.
+* The code can equally use [mpir] in place of [gmp] - indeed that is the preferred option on Win32.
+* This backend supports rvalue-references and is move-aware, making instantiations of `number` on this backend move aware.
+* Conversion from a string results in a `std::runtime_error` being thrown if the string can not be interpreted 
+as a valid floating point number.
+* Division by zero results in an infinity.
+
+There are some additional non member functions for working on intervals:
+
+	template <unsigned Digits10, expression_template_option ExpressionTemplates>
+	number<mpfr_float_backend<Digits10>, ExpressionTemplates> lower(const number<mpfi_float_backend<Digits10>, ExpressionTemplates>& val);
+
+Returns the lower end of the interval.
+
+	template <unsigned Digits10, expression_template_option ExpressionTemplates>
+	number<mpfr_float_backend<Digits10>, ExpressionTemplates> upper(const number<mpfi_float_backend<Digits10>, ExpressionTemplates>& val);
+
+Returns the upper end of the interval.
+
+	template <unsigned Digits10, expression_template_option ExpressionTemplates>
+	number<mpfr_float_backend<Digits10>, ExpressionTemplates> median(const number<mpfi_float_backend<Digits10>, ExpressionTemplates>& val);
+
+Returns the mid point of the interval.
+
+	template <unsigned Digits10, expression_template_option ExpressionTemplates>
+	number<mpfr_float_backend<Digits10>, ExpressionTemplates> width(const number<mpfi_float_backend<Digits10>, ExpressionTemplates>& val);
+
+Returns the absolute width of the interval.
+
+	template <unsigned Digits10, expression_template_option ExpressionTemplates>
+	number<mpfi_float_backend<Digits10>, ExpressionTemplates> intersect(
+		const number<mpfi_float_backend<Digits10>, ExpressionTemplates>& a, 
+		const number<mpfi_float_backend<Digits10>, ExpressionTemplates>&  b);
+
+Returns the interval which is the intersection of the ['a] and ['b].  Returns an 
+unspecified empty interval if there is no such intersection.
+
+	template <unsigned Digits10, expression_template_option ExpressionTemplates>
+	number<mpfi_float_backend<Digits10>, ExpressionTemplates> hull(
+		const number<mpfi_float_backend<Digits10>, ExpressionTemplates>& a, 
+		const number<mpfi_float_backend<Digits10>, ExpressionTemplates>&  b);
+
+Returns the interval which is the union of ['a] and ['b].
+
+	template <unsigned Digits10, expression_template_option ExpressionTemplates>
+	bool overlap(const number<mpfi_float_backend<Digits10>, ExpressionTemplates>& a, 
+	             const number<mpfi_float_backend<Digits10>, ExpressionTemplates>&  b);
+
+Returns `true` only if the intervals ['a] and ['b] overlap.
+
+	template <unsigned Digits10, expression_template_option ExpressionTemplates1, expression_template_option ExpressionTemplates2>
+	bool in(const number<mpfr_float_backend<Digits10>, ExpressionTemplates1>& a, 
+	        const number<mpfi_float_backend<Digits10>, ExpressionTemplates2>&  b);
+
+Returns `true` only if point ['a] is contained within the interval ['b].
+
+	template <unsigned Digits10, expression_template_option ExpressionTemplates>
+	bool zero_in(const number<mpfi_float_backend<Digits10>, ExpressionTemplates>& a);
+
+Returns `true` only if the interval ['a] contains the value zero.
+
+	template <unsigned Digits10, expression_template_option ExpressionTemplates>
+	bool subset(const number<mpfi_float_backend<Digits10>, ExpressionTemplates>& a, 
+	            const number<mpfi_float_backend<Digits10>, ExpressionTemplates>& b);
+
+Returns `true` only if ['a] is a subset of ['b].
+
+	template <unsigned Digits10, expression_template_option ExpressionTemplates>
+	bool proper_subset(const number<mpfi_float_backend<Digits10>, ExpressionTemplates>& a, 
+	                   const number<mpfi_float_backend<Digits10>, ExpressionTemplates>& b);
+
+Returns `true` only if ['a] is a proper subset of ['b].
+
+	template <unsigned Digits10, expression_template_option ExpressionTemplates>
+	bool empty(const number<mpfi_float_backend<Digits10>, ExpressionTemplates>& a);
+
+Returns `true` only if ['a] is an empty interval, equivalent to `upper(a) < lower(a)`.
+
+	template <unsigned Digits10, expression_template_option ExpressionTemplates>
+	bool singleton(const number<mpfi_float_backend<Digits10>, ExpressionTemplates>& a);
+
+Returns `true` if `lower(a) == upper(a)`.
+
+[h5 [mpfi] example:]
+
+[mpfi_eg]
+
+[endsect]
+
+[endsect]
+
 [section:rational Rational Number Types]
 
 The following back-ends provide rational number arithmetic:
@@ -890,7 +1081,7 @@ The following back-ends provide rational number arithmetic:
 [[`cpp_rational`][boost/multiprecision/cpp_int.hpp][2][None][An all C++ Boost-licensed implementation.][Slower than [gmp].]]
 [[`gmp_rational`][boost/multiprecision/gmp.hpp][2][[gmp]][Very fast and efficient back-end.][Dependency on GNU licensed [gmp] library.]]
 [[`tommath_rational`][boost/multiprecision/tommath.hpp][2][[tommath]][All C/C++ implementation that's Boost Software Licence compatible.][Slower than [gmp].]]
-[[`rational_adapter`][boost/multiprecision/rational_adapter.hpp][N/A][none][All C++ adapter that allows any integer back-end type to be used as a rational type.][Requires an underlying integer back-end type.]]
+[[`rational_adaptor`][boost/multiprecision/rational_adaptor.hpp][N/A][none][All C++ adaptor that allows any integer back-end type to be used as a rational type.][Requires an underlying integer back-end type.]]
 [[`boost::rational`][boost/rational.hpp][N/A][None][A C++ rational number type that can used with any `number` integer type.][The expression templates used by `number` end up being "hidden" inside `boost::rational`: performance may well suffer as a result.]]
 ]
 
@@ -900,7 +1091,7 @@ The following back-ends provide rational number arithmetic:
 
    namespace boost{ namespace multiprecision{
 
-   typedef rational_adapter<cpp_int_backend<> >    cpp_rational_backend;
+   typedef rational_adaptor<cpp_int_backend<> >    cpp_rational_backend;
 
    typedef number<cpp_rational_backend>         cpp_rational;
 
@@ -1031,7 +1222,7 @@ Note that using the library in this way largely negates the effect of the expres
 
 [endsect]
 
-[section:rational_adapter rational_adapter]
+[section:rational_adaptor rational_adaptor]
 
    namespace boost{ namespace multiprecision{
 
@@ -1040,18 +1231,153 @@ Note that using the library in this way largely negates the effect of the expres
 
    }}
 
-The class template `rational_adapter` is a back-end for `number` which converts any existing integer back-end
+The class template `rational_adaptor` is a back-end for `number` which converts any existing integer back-end
 into a rational-number back-end.
 
 So for example, given an integer back-end type `MyIntegerBackend`, the use would be something like:
 
    typedef number<MyIntegerBackend>                    MyInt;
-   typedef number<rational_adapter<MyIntegerBackend> > MyRational;
+   typedef number<rational_adaptor<MyIntegerBackend> > MyRational;
 
    MyRational r = 2;
    r /= 3;
    MyInt i = numerator(r);
    assert(i == 2);
+
+[endsect]
+
+[endsect]
+
+[section:misc Miscellaneous Number Types.]
+
+Backend types listed in this section are predominantly designed to aid debugging.
+
+[section:logged_adaptor logged_adaptor]
+
+`#include <boost/multiprecision/logged_adaptor.hpp>`
+
+   namespace boost{ namespace multiprecision{
+
+   template <class Backend>
+   void log_postfix_event(const Backend& result, const char* event_description);
+   template <class Backend, class T>
+   void log_postfix_event(const Backend& result1, const T& result2, const char* event_description);
+
+   template <class Backend>
+   void log_prefix_event(const Backend& arg1, const char* event_description);
+   template <class Backend, class T>
+   void log_prefix_event(const Backend& arg1, const T& arg2, const char* event_description);
+   template <class Backend, class T, class U>
+   void log_prefix_event(const Backend& arg1, const T& arg2, const U& arg3, const char* event_description);
+   template <class Backend, class T, class U, class V>
+   void log_prefix_event(const Backend& arg1, const T& arg2, const U& arg3, const V& arg4, const char* event_description);
+
+   template <Backend>
+   class logged_adaptor;
+
+   }} // namespaces
+
+The `logged_adaptor` type is used in conjunction with `number` and some other backend type: it acts as a thin wrapper around 
+some other backend to class `number` and logs all the events that take place on that object.  Before any number operation takes
+place, it calls `log_prefix_event` with the arguments to the operation (up to 4), plus a string describing the operation.
+Then after the operation it calls `log_postfix_event` with the result of the operation, plus a string describing the operation.
+Optionally, `log_postfix_event` takes a second result argument: this occurs when the result of the operation is not a `number`,
+for example when `fpclassify` is called, `log_postfix_event` will be called with `result1` being the argument to the function, and
+`result2` being the integer result of `fpclassify`.
+
+The default versions of `log_prefix_event` and `log_postfix_event` do nothing, it is therefore up to the user to overload these
+for the particular backend being observed.
+
+This type provides `numeric_limits` support whenever the template argument Backend does so.
+
+This type is particularly useful when combined with an interval number type - in this case we can use `log_postfix_event`
+to monitor the error accumulated after each operation.  We could either set some kind of trap whenever the accumulated error
+exceeds some threshold, or simply print out diagnostic information.  Using this technique we can quickly locate the cause of
+numerical instability in a particular routine.  The following example demonstrates this technique in a trivial algorithm
+that deliberately introduces cancellation error:
+
+[logged_adaptor]
+
+When we examine program output we can clearly see that the diameter of the interval increases after each subtraction:
+
+[logged_adaptor_output]
+
+[endsect]
+
+[section:debug_adaptor debug_adaptor]
+
+`#include <boost/multiprecision/debug_adaptor.hpp>`
+
+   namespace boost{ namespace multiprecision{
+
+   template <Backend>
+   class debug_adaptor;
+
+   }} // namespaces
+
+The `debug_adaptor` type is used in conjunction with `number` and some other backend type: it acts as a thin wrapper around 
+some other backend to class `number` and intercepts all operations on that object storing the result as a string within itself.
+
+This type provides `numeric_limits` support whenever the template argument Backend does so.
+
+This type is particularly useful when your debugger provides a good view of `std::string`: when this is the case
+multiprecision values can easily be inspected in the debugger by looking at the `debug_value` member of `debug_adaptor`.
+The down side of this approach is that runtimes are much slower when using this type.  Set against that it can make
+debugging very much easier, certainly much easier than sprinkling code with `printf` statements.
+
+When used in conjunction with the Visual C++ debugger visualisers, the value of a multiprecision type that uses this
+backend is displayed in the debugger just a builtin value would be, here we're inspecting a value of type
+`number<debug_adaptor<cpp_dec_float<50> > >`:
+
+[$../debugger1.png]
+
+Otherwise you will need to expand out the view and look at the "debug_value" member:
+
+[$../debugger2.png]
+
+It works for all the backend types equally too, here it is inspecting a `number<debug_adaptor<gmp_rational> >`:
+
+[$../debugger3.png]
+
+
+[endsect]
+
+[section:visualizers Visual C++ Debugger Visualizers]
+
+Let's face it debugger multiprecision numbers is hard - simply because we can't easily inspect the value of the numbers.
+Visual C++ provides a partial solution in the shape of "visualizers" which provide improved views of complex data structures,
+these visualizers need to be added to the `[Visualizer]` section of `autoexp.dat` located in the `Common7\Packages\Debugger`
+directory of your Visual Studio installation.  The actual visualizer code is in the sandbox 
+[@https://svn.boost.org/svn/boost/sandbox/boost_docs/subprojects/DebuggerVisualizers/multiprecision.vis.txt here] - just cut and paste the code
+into your `autoexp.dat` file.
+
+[note These visualizers have only been tested with VC10, also given the ability of buggy visualizers to crash your Visual C++
+debugger, make sure you back up `autoexp.dat` file before using these!!]
+
+The first visualizer provides improved views of `debug_adaptor`:
+
+[$../debugger1.png]
+
+The next visualizer provides improved views of cpp_int: small numbers are displayed as actual values, while larger numbers are
+displayed as an array of hexadecimal parts, with the most significant part first.  
+
+Here's what it looks like for small values:
+
+[$../debugger4.png]
+
+And for larger values:
+
+[$../debugger5.png]
+
+There is also a `~raw` child member that
+lets you see the actual members of the class:
+
+[$../debugger6.png]
+
+The visualizer for `cpp_dec_float` shows the first few digits of the value in the preview field, and the full array of digits
+when you expand the view.  As before the `~raw` child gives you access to the actual data members:
+
+[$../debugger7.png]
 
 [endsect]
 
@@ -1232,7 +1558,12 @@ The following example searches for a prime `p` for which `(p-1)/2` is also proba
 
 [section:lits Literal Types and `constexpr` Support]
 
-There is limited support for `constexpr` in the library, currently the `number` front end supports `constexpr`
+[note The features described in this section make heavy use of C++11 language features, currently 
+(as of May 2013) only
+GCC-4.7 and later, and Clang 3.3 and later have the support required to make these features work.]
+
+There is limited support for `constexpr` and user-defined literals in the library, currently the 
+`number` front end supports `constexpr`
 on default construction and all forwarding constructors, but not on any of the non-member operators.  So if 
 some type `B` is a literal type, then `number<B>` is also a literal type, and you will be able to 
 compile-time-construct such a type from any literal that `B` is compile-time-constructible from.
@@ -1251,6 +1582,67 @@ For example:
 
    constexpr checked_uint128_t   k = -1; // Error, checked type is not a literal type as we need runtime error checking.
    constexpr cpp_int             l = 2;  // Error, type is not a literal as it performs memory management.
+
+There is also limited support for user defined-literals - these are limited to unchecked, fixed precision `cpp_int`'s
+which are specified in hexadecimal notation.  The suffixes supported are:
+
+[table
+[[Suffix][Meaning]]
+[[_cppi][Specifies a value of type: `number<cpp_int_backend<N,N,signed_magnitude,unchecked,void> >`, where N is chosen
+to contain just enough digits to hold the number specified.]]
+[[_cppui][Specifies a value of type: `number<cpp_int_backend<N,N,unsigned_magnitude,unchecked,void> >`, where N is chosen
+to contain just enough digits to hold the number specified.]]
+[[_cppi['N]][Specifies a value of type `number<cpp_int_backend<N,N,signed_magnitude,unchecked,void> >`.]]
+[[_cppui['N]][Specifies a value of type `number<cpp_int_backend<N,N,signed_magnitude,unchecked,void> >`.]]
+]
+
+In each case, use of these suffixes with hexadecimal values produces a `constexpr` result.
+
+Examples:
+
+   //
+   // Any use of user defined literals requires that we import the literal-operators
+   // into current scope first:
+   using namespace boost::multiprecision::literals;
+   //
+   // To keep things simple in the example, we'll make our types used visible to this scope as well:
+   using namespace boost::multiprecision;
+   //
+   // The value zero as a number<cpp_int_backend<4,4,signed_magnitude,unchecked,void> >:
+   constexpr auto a = 0x0_cppi;
+   // The type of each constant has 4 bits per hexadecimal digit,
+   // so this is of type uint256_t (ie number<cpp_int_backend<256,256,unsigned_magnitude,unchecked,void> >):
+   constexpr auto b = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF_cppui;
+   //
+   // Smaller values can be assigned to larger values:
+   int256_t c = 0x1234_cppi; // OK
+   //
+   // However, this does not currently work in constexpr contexts:
+   constexpr int256_t d = 0x1_cppi; // Compiler error
+   //
+   // Constants can be padded out with leading zeros to generate wider types:
+   constexpr uint256_t e = 0x0000000000000000000000000000000000000000000FFFFFFFFFFFFFFFFFFFFF_cppui; // OK
+   //
+   // However, specific width types are best produced with specific-width suffixes,
+   // ones supported by default are `_cpp[u]i128`, `_cpp[u]i256`, `_cpp[u]i512`, `_cpp[u]i1024`.
+   //
+   constexpr int128_t f = 0x1234_cppi128; // OK, always produces an int128_t as the result.
+   constexpr uint1024_t g = 0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccc_cppui1024;
+   //
+   // If other specific width types are required, then there is a macro for generating the operators
+   // for these.  The macro can be used at namespace scope only:
+   //
+   BOOST_MP_DEFINE_SIZED_CPP_INT_LITERAL(2048);
+   //
+   // Now we can create 2048-bit literals as well:
+   constexpr auto h = 0xff_cppi2048; // h is of type number<cpp_int_backend<2048,2048,signed_magnitude,unchecked,void> >
+   //
+   // Finally negative values are handled via the unary minus operator:
+   //
+   constexpr int1024_t i = -0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF_cppui1024;
+   //
+   // Which means this also works:
+   constexpr int1024_t j = -g;   // OK: unary minus operator is constexpr.
 
 [endsect]
 
@@ -2025,7 +2417,7 @@ whose precision can vary at compile time (such as `mpf_float`).
    { static const expression_template_option value = et_off; };
 
    typedef number<cpp_int_backend<> >              cpp_int;    // arbitrary precision integer
-   typedef rational_adapter<cpp_int_backend<> >    cpp_rational_backend;
+   typedef rational_adaptor<cpp_int_backend<> >    cpp_rational_backend;
    typedef number<cpp_rational_backend>            cpp_rational; // arbitrary precision rational number
 
    // Fixed precision unsigned types:
@@ -2042,7 +2434,7 @@ whose precision can vary at compile time (such as `mpf_float`).
 
    // Over again, but with checking enabled this time:
    typedef number<cpp_int_backend<0, 0, signed_magnitude, checked> >                 checked_cpp_int;
-   typedef rational_adapter<cpp_int_backend<0, 0, signed_magnitude, checked> >       checked_cpp_rational_backend;
+   typedef rational_adaptor<cpp_int_backend<0, 0, signed_magnitude, checked> >       checked_cpp_rational_backend;
    typedef number<cpp_rational_backend>                                              checked_cpp_rational;
 
    // Checked fixed precision unsigned types:
@@ -2293,8 +2685,8 @@ a variables of type B, `cb`, `cb2` and `cb3` are constant variables of type `con
 `s` is a variable of type `const char*`, `ui` is a variable of type `unsigned`, `bb` is a variable of type `bool`,
 `pa` is a variable of type pointer-to-arithmetic-type, `exp` is a variable of type `B::exp_type`,
 `pexp` is a variable of type `B::exp_type*`, `i` is a variable of type `int`, `pi` pointer to a variable of type `int`, 
-B2 is another type that meets these requirements, b2 is a variable
-of type B2.
+B2 is another type that meets these requirements, b2 is a variable of type B2, `ss` is variable of type `std::streamsize`
+and `ff` is a variable of type `std::ios_base::fmtflags`.
 
 [table Compulsory Requirements on the Backend type.
 [[Expression][Return Type][Comments][Throws]]
@@ -2312,8 +2704,8 @@ of type B2.
             `B::signed_types`, `B::unsigned_types` or `B::float_types`.][[space]]]
 [[`b = s`][`B&`][Assignment from a string.][Throws a `std::runtime_error` if the string could not be interpreted as a valid number.]]
 [[`b.swap(b)`][`void`][Swaps the contents of its arguments.][`noexcept`]]
-[[`cb.str(ui, bb)`][`std::string`][Returns the string representation of `b` with `ui` digits and in scientific format if `bb` is `true`.
-                  If `ui` is zero, then returns as many digits as are required to reconstruct the original value.][[space]]]
+[[`cb.str(ss, ff)`][`std::string`][Returns the string representation of `b` with `ss` digits and formatted according to the flags set in `ff`.
+                  If `ss` is zero, then returns as many digits as are required to reconstruct the original value.][[space]]]
 [[`b.negate()`][`void`][Negates `b`.][[space]]]
 [[`cb.compare(cb2)`][`int`][Compares `cb` and `cb2`, returns a value less than zero if `cb < cb2`, a value greater than zero if `cb > cb2` and zero
                    if `cb == cb2`.][`noexcept`]]
@@ -2673,7 +3065,7 @@ in point of fact this naming convention shouldn't be necessary, but rather works
 [[number.hpp][Defines the `number` backend, is included by all the backend headers.]]
 [[mpfr.hpp][Defines the mpfr_float_backend backend.]]
 [[random.hpp][Defines code to interoperate with Boost.Random.]]
-[[rational_adapter.hpp][Defines the `rational_adapter` backend.]]
+[[rational_adaptor.hpp][Defines the `rational_adaptor` backend.]]
 [[cpp_dec_float.hpp][Defines the `cpp_dec_float` backend.]]
 [[tommath.hpp][Defines the `tommath_int` backend.]]
 [[concepts/number_archetypes.hpp][Defines a backend concept archetypes for testing use.]]
@@ -3336,6 +3728,24 @@ Windows Vista machine.
 
 [section:hist History]
 
+[h4 1.54]
+
+* [*Breaking change] renamed `rational_adapter` to `rational_adaptor`.
+* Add support for [mpfi].
+* Add logged_adaptor.
+* Add support for 128-bit floats via GCC's `__float128` or Intel's `_Quad` data types.
+* Add support for user-defined literals in cpp_int, improve `constexpr` support.
+* Fixed bug in integer division of `cpp_int` that results in incorrect sign of `cpp_int` when both arguments are small enough
+to fit in a `double_limb_type`.  See [@https://svn.boost.org/trac/boost/ticket/8126 8126].
+* Fixed bug in subtraction of a single limb in `cpp_int` that results in incorrect value when the result should have a 0
+in the last limb: [@https://svn.boost.org/trac/boost/ticket/8133 8133].
+* Fixed bug in `cpp_int` where division of 0 by something doesn't get zero in the result: [@https://svn.boost.org/trac/boost/ticket/8160 8160].
+* Fixed bug in some transcendental functions that caused incorrect return values when variables are reused, for example with
+`a = pow(a, b)`.  See [@https://svn.boost.org/trac/boost/ticket/8326 8326].
+* Fixed some assignment operations in the mpfr and gmp backends to be safe if the target has been moved from: [@https://svn.boost.org/trac/boost/ticket/8326 8667].
+* Fixed bug in `cpp_int` that gives incorrect answer for 0%N for large N: [@https://svn.boost.org/trac/boost/ticket/8670 8670].
+* Fixed set_precision in mpfr backend so it doesn't trample over an existing value: [@https://svn.boost.org/trac/boost/ticket/8692 8692].
+
 [h4 1.53]
 
 * First Release.
@@ -3380,7 +3790,7 @@ code.
 More a list of what ['could] be done, rather than what ['should] be done (which may be a much smaller list!).
 
 * Add back-end support for libdecNumber.
-* Add an adapter back-end for complex number types.
+* Add an adaptor back-end for complex number types.
 * Add a back-end for MPFR interval arithmetic.
 * Add better multiplication routines (Karatsuba, FFT etc) to cpp_int_backend.
 * Add assembly level routines to cpp_int_backend.

@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Class template observer_collection</title>
 <link rel="stylesheet" href="../../../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Boost.Numeric.Odeint">
 <link rel="up" href="../../../header/boost/numeric/odeint/integrate/observer_collection_hpp.html" title="Header &lt;boost/numeric/odeint/integrate/observer_collection.hpp&gt;">
 <link rel="prev" href="../../../header/boost/numeric/odeint/integrate/observer_collection_hpp.html" title="Header &lt;boost/numeric/odeint/integrate/observer_collection.hpp&gt;">
@@ -38,20 +38,20 @@
   <span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">function</span><span class="special">&lt;</span> <span class="keyword">void</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">State</span> <span class="special">&amp;</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">Time</span> <span class="special">&amp;</span><span class="special">)</span> <span class="special">&gt;</span> <a name="boost.numeric.odeint.observer_collection.observer_type"></a><span class="identifier">observer_type</span><span class="special">;</span>  
   <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span> <span class="identifier">observer_type</span> <span class="special">&gt;</span>                         <a name="boost.numeric.odeint.observer_collection.collection_type"></a><span class="identifier">collection_type</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="observer_collection.html#idp19442208-bb">public member functions</a></span>
-  <span class="keyword">void</span> <a class="link" href="observer_collection.html#idp19442416-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">State</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">Time</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">collection_type</span> <span class="special">&amp;</span> <a class="link" href="observer_collection.html#idp19443552-bb"><span class="identifier">observers</span></a><span class="special">(</span><span class="keyword">void</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">const</span> <span class="identifier">collection_type</span> <span class="special">&amp;</span> <a class="link" href="observer_collection.html#idp19444368-bb"><span class="identifier">observers</span></a><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="observer_collection.html#idp19605520-bb">public member functions</a></span>
+  <span class="keyword">void</span> <a class="link" href="observer_collection.html#idp19605728-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">State</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">Time</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">collection_type</span> <span class="special">&amp;</span> <a class="link" href="observer_collection.html#idp19606864-bb"><span class="identifier">observers</span></a><span class="special">(</span><span class="keyword">void</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">const</span> <span class="identifier">collection_type</span> <span class="special">&amp;</span> <a class="link" href="observer_collection.html#idp19607680-bb"><span class="identifier">observers</span></a><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idp28713536"></a><h2>Description</h2>
+<a name="idp28747776"></a><h2>Description</h2>
 <div class="refsect2">
-<a name="idp28713744"></a><h3>
-<a name="idp19442208-bb"></a><code class="computeroutput">observer_collection</code> public member functions</h3>
+<a name="idp28747984"></a><h3>
+<a name="idp19605520-bb"></a><code class="computeroutput">observer_collection</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp19442416-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">State</span> <span class="special">&amp;</span> x<span class="special">,</span> <span class="identifier">Time</span> t<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">collection_type</span> <span class="special">&amp;</span> <a name="idp19443552-bb"></a><span class="identifier">observers</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">const</span> <span class="identifier">collection_type</span> <span class="special">&amp;</span> <a name="idp19444368-bb"></a><span class="identifier">observers</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp19605728-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">State</span> <span class="special">&amp;</span> x<span class="special">,</span> <span class="identifier">Time</span> t<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">collection_type</span> <span class="special">&amp;</span> <a name="idp19606864-bb"></a><span class="identifier">observers</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">const</span> <span class="identifier">collection_type</span> <span class="special">&amp;</span> <a name="idp19607680-bb"></a><span class="identifier">observers</span><span class="special">(</span><span class="keyword">void</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 </div>

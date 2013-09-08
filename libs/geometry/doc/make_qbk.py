@@ -145,7 +145,15 @@ for i in views:
 model_to_quickbook2("d2_1_1point__xy", "point_xy")
 
 group_to_quickbook("arithmetic")
-group_to_quickbook("register")
 group_to_quickbook("enum")
+group_to_quickbook("register")
+group_to_quickbook("svg")
+class_to_quickbook("svg_mapper")
+group_to_quickbook("wkt")
 
-os.system("../../../b2") 
+os.chdir("index")
+execfile("make_qbk.py")
+os.chdir("..")
+
+# Use either bjam or b2 or ../../../b2 (the last should be done on Release branch)
+os.system("bjam") 

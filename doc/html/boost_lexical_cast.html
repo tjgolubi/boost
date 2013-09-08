@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Chapter&#160;16.&#160;Boost.Lexical_Cast 1.0</title>
 <link rel="stylesheet" href="../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="libraries.html" title="Part&#160;I.&#160;The Boost C++ Libraries (BoostBook Subset)">
 <link rel="prev" href="lambda/s10.html" title="Rationale for some of the design decisions">
@@ -28,7 +28,7 @@
 <a name="boost_lexical_cast"></a>Chapter&#160;16.&#160;Boost.Lexical_Cast 1.0</h2></div>
 <div><p class="copyright">Copyright &#169; 2000-2005 Kevlin Henney</p></div>
 <div><p class="copyright">Copyright &#169; 2006-2010 Alexander Nasonov</p></div>
-<div><p class="copyright">Copyright &#169; 2011, 2012 Antony Polukhin</p></div>
+<div><p class="copyright">Copyright &#169; 2011-2013 Antony Polukhin</p></div>
 <div><div class="legalnotice">
 <a name="boost_lexical_cast.legal"></a><p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -38,7 +38,7 @@
 </div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="section"><a href="boost_lexical_cast.html#boost_lexical_cast.motivation">Motivation</a></span></dt>
 <dt><span class="section"><a href="boost_lexical_cast/examples.html">Examples</a></span></dt>
 <dt><span class="section"><a href="boost_lexical_cast/synopsis.html">Synopsis</a></span></dt>
@@ -61,6 +61,8 @@
       C++ version 4.5.3</a></span></dt>
 <dt><span class="section"><a href="boost_lexical_cast/performance.html#boost_lexical_cast.performance.gnu_c___version_4_4_7">GNU
       C++ version 4.4.7</a></span></dt>
+<dt><span class="section"><a href="boost_lexical_cast/performance.html#boost_lexical_cast.performance.microsoft_visual_c___version_11_0">Microsoft
+      Visual C++ version 11.0</a></span></dt>
 </dl></dd>
 </dl>
 </div>
@@ -83,7 +85,7 @@
       For instance, there are a number of limitations with the family of standard
       C functions typified by <code class="computeroutput"><span class="identifier">atoi</span></code>:
     </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
           Conversion is supported in one direction only: from text to internal data
           type. Converting the other way using the C library requires either the
@@ -141,7 +143,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: January 31, 2013 at 01:30:04 GMT</small></p></td>
+<td align="left"><p><small>Last revised: June 25, 2013 at 22:23:28 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

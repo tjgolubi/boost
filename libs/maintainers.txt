@@ -59,8 +59,9 @@ iterator              David Abrahams <dave -at- boost-consulting.com>, Thomas Wi
 lambda                Jaakko Jarvi <jarvi -at- cs.tamu.edu>
 local_function        Lorenzo Caminiti <lorcaminiti -at- gmail.com>
 locale                Artyom Beilis <artyomtnk -at- yahoo.com>
-logic                 Douglas Gregor <dgregor -at- cs.indiana.edu>
 lockfree              Tim Blechmann <tim -at- klingt.org>
+log                   Andrey Semashev <andrey.semashev -at- gmail.com>
+logic                 Douglas Gregor <dgregor -at- cs.indiana.edu>
 math                  Hubert Holin <Hubert.Holin -at- meteo.fr>, John Maddock <john -at- johnmaddock.co.uk>
 move                  Ion Gaztanaga <igaztanaga -at- gmail.com>
 mpl                   Aleksey Gurtovoy <agurtovoy -at- meta-comm.com>
@@ -103,7 +104,9 @@ thread                Anthony Williams <anthony -at- justsoftwaresolutions.co.uk
 timer                 Beman Dawes <bdawes -at- acm.org>
 tokenizer             John R. Bandela <jbandela -at- ufl.edu>
 tr1                   John Maddock <john -at- johnmaddock.co.uk>
+tti                   Edward Diener <eld -at- tropicsoft.com>
 tuple                 Jaakko Jarvi <jarvi -at- cs.tamu.edu>
+type_erasure          Steven Watanabe <steven -at- providere-consulting.com>
 type_traits           John Maddock <john -at- johnmaddock.co.uk>
 typeof                Arkadiy Vertleyb <vertleyb -at- hotmail.com>, Peder Holt <peder.holt -at- gmail.com>
 units                 Matthias Schabel <boost -at- schabel-family.org>, Steven Watanabe <steven -at- providere-consulting.com>

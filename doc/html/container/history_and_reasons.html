@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>History and reasons to use Boost.Container</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="../container.html" title="Chapter&#160;7.&#160;Boost.Container">
 <link rel="prev" href="other_features.html" title="Other features">
@@ -27,7 +27,7 @@
 <a name="container.history_and_reasons"></a><a class="link" href="history_and_reasons.html" title="History and reasons to use Boost.Container">History and reasons to use
     Boost.Container</a>
 </h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="history_and_reasons.html#container.history_and_reasons.boost_container_history">Boost.Container
       history</a></span></dt>
 <dt><span class="section"><a href="history_and_reasons.html#container.history_and_reasons.Why_boost_container">Why
@@ -76,7 +76,7 @@
         would you want to use <span class="bold"><strong>Boost.Container</strong></span>? There
         are several reasons for that:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             If you have a C++03 compiler, you can have access to C++11 features and
             have an easy code migration when you change your compiler.
@@ -93,7 +93,7 @@
             If you work on multiple platforms, you'll have a portable behaviour without
             depending on the std-lib implementation conformance of each platform.
             Some examples:
-            <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; ">
 <li class="listitem">
                   Default constructors don't allocate memory at all, which improves
                   performance and usually implies a no-throw guarantee (if predicate's
@@ -107,6 +107,11 @@
 <li class="listitem">
             New extensions beyond the standard based on user feedback to improve
             code performance.
+          </li>
+<li class="listitem">
+            You need a portable implementation that works when compiling without
+            exceptions support or you need to customize the error handling when a
+            container needs to signall an exceptional error.
           </li>
 </ul></div>
 </div>

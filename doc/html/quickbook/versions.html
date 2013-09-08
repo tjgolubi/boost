@@ -3,9 +3,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Language Versions</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../quickbook.html" title="Chapter&#160;39.&#160;Quickbook 1.5">
+<link rel="up" href="../quickbook.html" title="Chapter&#160;40.&#160;Quickbook 1.5">
 <link rel="prev" href="syntax/block.html" title="Block Level Elements">
 <link rel="next" href="install.html" title="Installation and configuration">
 </head>
@@ -25,7 +25,7 @@
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="quickbook.versions"></a>Language Versions</h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="versions.html#quickbook.versions.stable">Stable Versions</a></span></dt>
 <dt><span class="section"><a href="versions.html#quickbook.versions.1_6">Quickbook 1.6</a></span></dt>
 <dt><span class="section"><a href="versions.html#quickbook.versions.1_7">Quickbook 1.7</a></span></dt>
@@ -42,10 +42,10 @@
       </p>
 <h4>
 <a name="quickbook.versions.stable.h0"></a>
-        <span><a name="quickbook.versions.stable.quickbook_1_3_and_later"></a></span><a class="link" href="versions.html#quickbook.versions.stable.quickbook_1_3_and_later">Quickbook
+        <span class="phrase"><a name="quickbook.versions.stable.quickbook_1_3_and_later"></a></span><a class="link" href="versions.html#quickbook.versions.stable.quickbook_1_3_and_later">Quickbook
         1.3 and later</a>
       </h4>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             Introduced quickbook language versioning.
           </li>
@@ -60,10 +60,10 @@
 </ul></div>
 <h4>
 <a name="quickbook.versions.stable.h1"></a>
-        <span><a name="quickbook.versions.stable.quickbook_1_5_and_later"></a></span><a class="link" href="versions.html#quickbook.versions.stable.quickbook_1_5_and_later">Quickbook
+        <span class="phrase"><a name="quickbook.versions.stable.quickbook_1_5_and_later"></a></span><a class="link" href="versions.html#quickbook.versions.stable.quickbook_1_5_and_later">Quickbook
         1.5 and later</a>
       </h4>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             Ignore template argument separators inside square brackets.
           </li>
@@ -88,8 +88,10 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="quickbook.versions.1_6"></a><a class="link" href="versions.html#quickbook.versions.1_6" title="Quickbook 1.6">Quickbook 1.6</a>
 </h3></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="versions.html#quickbook.versions.1_6.docinfo">Includes with docinfo</a></span></dt>
+<dt><span class="section"><a href="versions.html#quickbook.versions.1_6.doc_info_macros">Macros in docinfo
+        block</a></span></dt>
 <dt><span class="section"><a href="versions.html#quickbook.versions.1_6.scope">Scoping templates and
         macros</a></span></dt>
 <dt><span class="section"><a href="versions.html#quickbook.versions.1_6.include">Including C++ and python
@@ -138,6 +140,23 @@
 <p>
           If an included document doesn't have a docinfo block, it's just included
           as before.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="quickbook.versions.1_6.doc_info_macros"></a><a class="link" href="versions.html#quickbook.versions.1_6.doc_info_macros" title="Macros in docinfo block">Macros in docinfo
+        block</a>
+</h4></div></div></div>
+<p>
+          You can now expand macros in text fields in the docinfo block. In the top
+          docinfo block only the predefined macros are available, but in nested documents
+          macros defined in the parent document are also available.
+        </p>
+<p>
+          There's a small bug here - this leaks into older versions for the <code class="computeroutput">license</code>
+          and <code class="computeroutput">purpose</code> fields, but since only the predefined macros are
+          available, it's unlikely to break any existing documents. So I'd rather
+          not complicate the code further by fixing that.
         </p>
 </div>
 <div class="section">
@@ -346,23 +365,93 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="quickbook.versions.1_6.elements"></a><a class="link" href="versions.html#quickbook.versions.1_6.elements" title="New Elements">New Elements</a>
 </h4></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="versions.html#quickbook.versions.1_6.elements.block"><code class="computeroutput">block</code></a></span></dt>
+<dt><span class="section"><a href="versions.html#quickbook.versions.1_6.elements.lists"><code class="computeroutput">ordered_list</code>
+          and <code class="computeroutput">itemized_list</code></a></span></dt>
+<dt><span class="section"><a href="versions.html#quickbook.versions.1_6.elements.role"><code class="computeroutput">role</code></a></span></dt>
+</dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="quickbook.versions.1_6.elements.block"></a><a class="link" href="versions.html#quickbook.versions.1_6.elements.block" title="block"><code class="computeroutput">block</code></a>
+</h5></div></div></div>
 <p>
-          New elements in 1.6 (to be documented later):
-        </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
-<li class="listitem">
-              <code class="computeroutput">block</code>
-            </li>
-<li class="listitem">
-              <code class="computeroutput">ordered_list</code>
-            </li>
-<li class="listitem">
-              <code class="computeroutput">itemized_list</code>
-            </li>
-<li class="listitem">
-              <code class="computeroutput">role</code>
-            </li>
-</ul></div>
+            <code class="computeroutput">block</code> is a block element that just marks its contents as
+            a block, so that they aren't wrapped in paragraph tags. The main use
+            is for escaped docbook block tags, such as:
+          </p>
+<pre class="programlisting">[template chapter[title]
+[block'''&lt;chapter&gt;&lt;title&gt;'''[title]'''&lt;/title&gt;''']
+]
+
+[template chapterend
+[block'''&lt;/chapter&gt;''']
+]
+
+[chapter An example chapter]
+
+Content
+
+[chapterend]
+</pre>
+<p>
+            Without the <code class="computeroutput">block</code> element, the <code class="computeroutput">chapter</code> and
+            <code class="computeroutput">chapterend</code> templates would be wrapped in paragraph tags.
+          </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../doc/src/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              In this example, the template body has to start with a newline so that
+              the template will be interpreted in block mode.
+            </p></td></tr>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="quickbook.versions.1_6.elements.lists"></a><a class="link" href="versions.html#quickbook.versions.1_6.elements.lists" title="ordered_list and itemized_list"><code class="computeroutput">ordered_list</code>
+          and <code class="computeroutput">itemized_list</code></a>
+</h5></div></div></div>
+<p>
+            These are used as an alternative to the normal wiki-style markup for
+            lists. They make it easier to nest lists inside other elements, and nest
+            elements inside lists. The markup is similar to a single level table:
+          </p>
+<pre class="programlisting">[ordered_list [item1][item2]]
+</pre>
+<p>
+            is equivalent to:
+          </p>
+<pre class="programlisting"># item1
+# item2
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="quickbook.versions.1_6.elements.role"></a><a class="link" href="versions.html#quickbook.versions.1_6.elements.role" title="role"><code class="computeroutput">role</code></a>
+</h5></div></div></div>
+<p>
+            <code class="computeroutput">role</code> is a phrase element used to mark up the text in the
+            eventual html with an a class. For example:
+          </p>
+<pre class="programlisting">[role red Text content]
+</pre>
+<p>
+            Will generate the docbook:
+          </p>
+<pre class="programlisting">&lt;phrase role="red"&gt;Text content&lt;/phrase&gt;
+</pre>
+<p>
+            Which will generate html along the lines of:
+          </p>
+<pre class="programlisting">&lt;span class="red"&gt;Text content&lt;/span&gt;
+</pre>
+<p>
+            And then you can use css to style this however you wish.
+          </p>
+</div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -386,12 +475,12 @@
 <p>
           generates:
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
               Para 1
               <p>
                 Para 2
               </p>
-              <div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem">
+              <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem">
                     Nested Para 1
                     <p>
                       Nested Para 2
@@ -413,7 +502,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="quickbook.versions.1_7"></a><a class="link" href="versions.html#quickbook.versions.1_7" title="Quickbook 1.7">Quickbook 1.7</a>
 </h3></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="versions.html#quickbook.versions.1_7.source_mode">Source mode for
         single entities</a></span></dt>
 <dt><span class="section"><a href="versions.html#quickbook.versions.1_7.callouts">Callouts in code block</a></span></dt>
@@ -499,7 +588,7 @@
           There's very premilinary support for calling templates in link values.
           A lot more work needs to be done, including:
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               Considering other places where templates could be called (e.g. images
               are quite tricky, as templates could get confused with attributes,

@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Chapter&#160;7.&#160;Boost.Container</title>
 <link rel="stylesheet" href="../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="libraries.html" title="Part&#160;I.&#160;The Boost C++ Libraries (BoostBook Subset)">
 <link rel="prev" href="SignedInteger.html" title="Concept SignedInteger">
@@ -40,7 +40,7 @@
 </div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="section"><a href="container.html#container.intro">Introduction</a></span></dt>
 <dd><dl>
 <dt><span class="section"><a href="container.html#container.intro.introduction_building_container">Building
@@ -60,12 +60,14 @@
 <dt><span class="section"><a href="container/containers_of_incomplete_types.html#container.containers_of_incomplete_types.type_erasure">Type
       Erasure</a></span></dt>
 </dl></dd>
+<dt><span class="section"><a href="container/exception_handling.html">Boost.Container and C++ exceptions</a></span></dt>
 <dt><span class="section"><a href="container/non_standard_containers.html">Non-standard containers</a></span></dt>
 <dd><dl>
 <dt><span class="section"><a href="container/non_standard_containers.html#container.non_standard_containers.stable_vector"><span class="emphasis"><em>stable_vector</em></span></a></span></dt>
 <dt><span class="section"><a href="container/non_standard_containers.html#container.non_standard_containers.flat_xxx"><span class="emphasis"><em>flat_(multi)map/set</em></span>
       associative containers</a></span></dt>
 <dt><span class="section"><a href="container/non_standard_containers.html#container.non_standard_containers.slist"><span class="emphasis"><em>slist</em></span></a></span></dt>
+<dt><span class="section"><a href="container/non_standard_containers.html#container.non_standard_containers.static_vector"><span class="emphasis"><em>static_vector</em></span></a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="container/Cpp11_conformance.html">C++11 Conformance</a></span></dt>
 <dd><dl>
@@ -89,6 +91,11 @@
       Boost.Container?</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="container/index.html">Indexes</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="container/index.html#idp33280224">Class Index</a></span></dt>
+<dt><span class="section"><a href="container/index.html#idp33341840">Typedef Index</a></span></dt>
+<dt><span class="section"><a href="container/index.html#idp33414992">Function Index</a></span></dt>
+</dl></dd>
 <dt><span class="section"><a href="boost_container_header_reference.html">Boost.Container Header Reference</a></span></dt>
 <dd><dl>
 <dt><span class="section"><a href="boost_container_header_reference.html#header.boost.container.allocator_traits_hpp">Header &lt;boost/container/allocator_traits.hpp&gt;</a></span></dt>
@@ -103,13 +110,17 @@
 <dt><span class="section"><a href="boost_container_header_reference.html#header.boost.container.set_hpp">Header &lt;boost/container/set.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_container_header_reference.html#header.boost.container.slist_hpp">Header &lt;boost/container/slist.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_container_header_reference.html#header.boost.container.stable_vector_hpp">Header &lt;boost/container/stable_vector.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="boost_container_header_reference.html#header.boost.container.static_vector_hpp">Header &lt;boost/container/static_vector.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_container_header_reference.html#header.boost.container.string_hpp">Header &lt;boost/container/string.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="boost_container_header_reference.html#header.boost.container.throw_exception_hpp">Header &lt;boost/container/throw_exception.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_container_header_reference.html#header.boost.container.vector_hpp">Header &lt;boost/container/vector.hpp&gt;</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="container/acknowledgements_notes.html">Acknowledgements, notes
     and links</a></span></dt>
 <dt><span class="section"><a href="container/release_notes.html">Release Notes</a></span></dt>
 <dd><dl>
+<dt><span class="section"><a href="container/release_notes.html#container.release_notes.release_notes_boost_1_54_00">Boost
+      1.54 Release</a></span></dt>
 <dt><span class="section"><a href="container/release_notes.html#container.release_notes.release_notes_boost_1_53_00">Boost
       1.53 Release</a></span></dt>
 <dt><span class="section"><a href="container/release_notes.html#container.release_notes.release_notes_boost_1_52_00">Boost
@@ -129,7 +140,7 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="container.intro"></a><a class="link" href="container.html#container.intro" title="Introduction">Introduction</a>
 </h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="container.html#container.intro.introduction_building_container">Building
       Boost.Container</a></span></dt>
 <dt><span class="section"><a href="container.html#container.intro.tested_compilers">Tested compilers</a></span></dt>
@@ -143,7 +154,7 @@
 <p>
       In short, what does <span class="bold"><strong>Boost.Container</strong></span> offer?
     </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
           Move semantics are implemented, including move emulation for pre-C++11
           compilers.
@@ -158,7 +169,7 @@
         </li>
 <li class="listitem">
           The library offers new useful containers:
-          <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+          <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; ">
 <li class="listitem">
                 <code class="computeroutput"><a class="link" href="boost/container/flat_map.html" title="Class template flat_map">flat_map</a></code>,
                 <code class="computeroutput"><a class="link" href="boost/container/flat_set.html" title="Class template flat_set">flat_set</a></code>,
@@ -201,7 +212,7 @@
         <span class="bold"><strong>Boost.Container</strong></span> requires a decent C++98
         compatibility. Some compilers known to work are:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             Visual C++ &gt;= 7.1.
           </li>
@@ -216,7 +227,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: January 31, 2013 at 01:30:04 GMT</small></p></td>
+<td align="left"><p><small>Last revised: June 25, 2013 at 22:23:00 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

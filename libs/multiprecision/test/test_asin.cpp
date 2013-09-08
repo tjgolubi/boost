@@ -16,11 +16,13 @@
 #include <boost/array.hpp>
 #include "test.hpp"
 
-#if !defined(TEST_MPF_50) && !defined(TEST_MPF) && !defined(TEST_BACKEND) && !defined(TEST_MPZ) && !defined(TEST_CPP_DEC_FLOAT) && !defined(TEST_MPFR) && !defined(TEST_MPFR_50) && !defined(TEST_MPQ)
+#if !defined(TEST_MPF_50) && !defined(TEST_MPF) && !defined(TEST_BACKEND) && !defined(TEST_CPP_DEC_FLOAT) && !defined(TEST_MPFR) && !defined(TEST_MPFR_50) && !defined(TEST_MPFI_50) && !defined(TEST_FLOAT128)
 #  define TEST_MPF_50
 //#  define TEST_MPF
 #  define TEST_BACKEND
 #  define TEST_CPP_DEC_FLOAT
+#  define TEST_MPFI_50
+#  define TEST_FLOAT128
 
 #ifdef _MSC_VER
 #pragma message("CAUTION!!: No backend type specified so testing everything.... this will take some time!!")
@@ -37,11 +39,17 @@
 #if defined(TEST_MPFR_50)
 #include <boost/multiprecision/mpfr.hpp>
 #endif
+#if defined(TEST_MPFI_50)
+#include <boost/multiprecision/mpfi.hpp>
+#endif
 #ifdef TEST_BACKEND
 #include <boost/multiprecision/concepts/mp_number_archetypes.hpp>
 #endif
 #ifdef TEST_CPP_DEC_FLOAT
 #include <boost/multiprecision/cpp_dec_float.hpp>
+#endif
+#ifdef TEST_FLOAT128
+#include <boost/multiprecision/float128.hpp>
 #endif
 
 template <class T>
@@ -96,6 +104,10 @@ int main()
    test<boost::multiprecision::mpfr_float_50>();
    test<boost::multiprecision::mpfr_float_100>();
 #endif
+#ifdef TEST_MPFI_50
+   test<boost::multiprecision::mpfi_float_50>();
+   test<boost::multiprecision::mpfi_float_100>();
+#endif
 #ifdef TEST_CPP_DEC_FLOAT
    test<boost::multiprecision::cpp_dec_float_50>();
    test<boost::multiprecision::cpp_dec_float_100>();
@@ -113,6 +125,9 @@ int main()
    test<boost::multiprecision::number<boost::multiprecision::cpp_dec_float<9> > >();
    test<boost::multiprecision::number<boost::multiprecision::cpp_dec_float<18> > >();
 #endif
+#endif
+#ifdef TEST_FLOAT128
+   test<boost::multiprecision::float128>();
 #endif
    return boost::report_errors();
 }

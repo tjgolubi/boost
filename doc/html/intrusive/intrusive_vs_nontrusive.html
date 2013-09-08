@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Intrusive and non-intrusive containers</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="../intrusive.html" title="Chapter&#160;14.&#160;Boost.Intrusive">
 <link rel="prev" href="../intrusive.html" title="Chapter&#160;14.&#160;Boost.Intrusive">
@@ -27,7 +27,7 @@
 <a name="intrusive.intrusive_vs_nontrusive"></a><a class="link" href="intrusive_vs_nontrusive.html" title="Intrusive and non-intrusive containers">Intrusive and non-intrusive
     containers</a>
 </h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="intrusive_vs_nontrusive.html#intrusive.intrusive_vs_nontrusive.differences_intrusive_vs_nontrusive">Differences
       between intrusive and non-intrusive containers</a></span></dt>
 <dt><span class="section"><a href="intrusive_vs_nontrusive.html#intrusive.intrusive_vs_nontrusive.properties_of_intrusive">Properties
@@ -124,7 +124,7 @@
 <p>
         A non-intrusive container has some limitations:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             An object can only belong to one container: If you want to share an object
             between two containers, you either have to store multiple copies of those
@@ -151,7 +151,7 @@
 <p>
         Intrusive containers have some important advantages:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             Operating with intrusive containers doesn't invoke any memory management
             at all. The time and size overhead associated with dynamic memory can
@@ -184,7 +184,7 @@
 <p>
         Intrusive containers have also downsides:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             Each type stored in an intrusive container needs additional memory holding
             the maintenance information needed by the container. Hence, whenever

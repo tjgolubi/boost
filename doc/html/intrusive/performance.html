@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Performance</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="../intrusive.html" title="Chapter&#160;14.&#160;Boost.Intrusive">
 <link rel="prev" href="design_notes.html" title="Design Notes">
@@ -26,7 +26,7 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="intrusive.performance"></a><a class="link" href="performance.html" title="Performance">Performance</a>
 </h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="performance.html#intrusive.performance.performance_results_push_back">Back
       insertion and destruction</a></span></dt>
 <dt><span class="section"><a href="performance.html#intrusive.performance.performance_results_reversing">Reversing</a></span></dt>
@@ -39,7 +39,7 @@
       <span class="bold"><strong>Boost.Intrusive</strong></span> containers offer speed improvements
       compared to non-intrusive containers primarily because:
     </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
           They minimize memory allocation/deallocation calls.
         </li>
@@ -51,7 +51,7 @@
       This section will show performance tests comparing some operations on <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">intrusive</span><span class="special">::</span><span class="identifier">list</span></code> and
       <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">list</span></code>:
     </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
           Insertions using <code class="computeroutput"><span class="identifier">push_back</span></code>
           and container destruction will show the overhead associated with memory
@@ -77,7 +77,7 @@
       between several containers. Because of this versatility, the performance tests
       will be executed for 6 different list types:
     </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
           3 intrusive lists holding a class named <code class="computeroutput"><span class="identifier">itest_class</span></code>,
           each one with a different linking policy (<code class="computeroutput"><span class="identifier">normal_link</span></code>,

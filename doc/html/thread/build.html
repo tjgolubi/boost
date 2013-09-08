@@ -3,10 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Using and building the library</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../thread.html" title="Chapter&#160;30.&#160;Thread 4.0.0">
-<link rel="prev" href="../thread.html" title="Chapter&#160;30.&#160;Thread 4.0.0">
+<link rel="up" href="../thread.html" title="Chapter&#160;30.&#160;Thread 4.1.0">
+<link rel="prev" href="../thread.html" title="Chapter&#160;30.&#160;Thread 4.1.0">
 <link rel="next" href="changes.html" title="History">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -26,7 +26,7 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="thread.build"></a><a class="link" href="build.html" title="Using and building the library">Using and building the library</a>
 </h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="build.html#thread.build.configuration">Configuration</a></span></dt>
 <dt><span class="section"><a href="build.html#thread.build.limitations">Limitations</a></span></dt>
 </dl></div>
@@ -53,7 +53,7 @@
 <p>
       Boost.Thread depends on some non header-only libraries.
     </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
           Boost.System: This dependency is mandatory and you will need to link with
           the library.
@@ -94,7 +94,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="thread.build.configuration"></a><a class="link" href="build.html#thread.build.configuration" title="Configuration">Configuration</a>
 </h3></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="build.html#thread.build.configuration.chrono">Boost.Chrono</a></span></dt>
 <dt><span class="section"><a href="build.html#thread.build.configuration.move">Boost.Move</a></span></dt>
 <dt><span class="section"><a href="build.html#thread.build.configuration.date_time">Boost.DateTime</a></span></dt>
@@ -179,17 +179,17 @@
               </td>
 <td>
                 <p>
-                  YES
+                  YES/NO
                 </p>
               </td>
 <td>
                 <p>
-                  YES
+                  YES/NO
                 </p>
               </td>
 <td>
                 <p>
-                  YES
+                  YES/NO
                 </p>
               </td>
 </tr>
@@ -557,17 +557,17 @@
               </td>
 <td>
                 <p>
-                  YES
+                  YES/NO
                 </p>
               </td>
 <td>
                 <p>
-                  YES
+                  YES/NO
                 </p>
               </td>
 <td>
                 <p>
-                  NO
+                  YES/NO
                 </p>
               </td>
 </tr>
@@ -747,6 +747,16 @@
           is not defined. The user should define <code class="computeroutput"><span class="identifier">BOOST_THREAD_DONT_USE_CHRONO</span></code>
           for compilers that don't work well with Boost.Chrono.
         </p>
+<div class="warning"><table border="0" summary="Warning">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="../../../doc/src/images/warning.png"></td>
+<th align="left">Warning</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            When defined BOOST_THREAD_PLATFORM_WIN32 BOOST_THREAD_USES_CHRONO is
+            defined independently of user settings.
+          </p></td></tr>
+</table></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -774,7 +784,7 @@
           the <a class="link" href="../date_time.html" title="Chapter&#160;8.&#160;Boost.Date_Time">Boost.Date_Time</a> library are deprecated.
           These include (but are not limited to):
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <a class="link" href="thread_management.html#thread.thread_management.this_thread.sleep" title="Non-member function sleep() DEPRECATED"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">this_thread</span><span class="special">::</span><span class="identifier">sleep</span><span class="special">()</span></code></a>
             </li>
@@ -789,12 +799,22 @@
             </li>
 </ul></div>
 <p>
-          When <code class="computeroutput"><span class="identifier">BOOST_THREAD_VERSION</span><span class="special">&lt;=</span><span class="number">3</span></code> define
-          <code class="computeroutput"><span class="identifier">BOOST_THREAD_DONT_USE_DATETIME</span>
-          </code> if you don't want to use Boost.DateTime related interfaces. When
-          <code class="computeroutput"><span class="identifier">BOOST_THREAD_VERSION</span><span class="special">&gt;</span><span class="number">3</span></code> define <code class="computeroutput"><span class="identifier">BOOST_THREAD_USES_DATETIME</span>
-          </code> if you want to use Boost.DateTime related interfaces.
+          When <code class="computeroutput"><span class="identifier">BOOST_THREAD_VERSION</span><span class="special">&lt;=</span><span class="number">3</span></code> &amp;&amp;
+          defined BOOST_THREAD_PLATFORM_PTHREAD define <code class="computeroutput"><span class="identifier">BOOST_THREAD_DONT_USE_DATETIME</span></code>
+          if you don't want to use Boost.DateTime related interfaces. When <code class="computeroutput"><span class="identifier">BOOST_THREAD_VERSION</span><span class="special">&gt;</span><span class="number">3</span></code> &amp;&amp; defined BOOST_THREAD_PLATFORM_PTHREAD
+          define <code class="computeroutput"><span class="identifier">BOOST_THREAD_USES_DATETIME</span></code>
+          if you want to use Boost.DateTime related interfaces.
         </p>
+<div class="warning"><table border="0" summary="Warning">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="../../../doc/src/images/warning.png"></td>
+<th align="left">Warning</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            When defined BOOST_THREAD_PLATFORM_WIN32 BOOST_THREAD_USES_DATETIME is
+            defined independently of user settings.
+          </p></td></tr>
+</table></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -804,7 +824,7 @@
 <p>
           The following nested typedefs are deprecated:
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">thread</span><span class="special">::</span><span class="identifier">oprator</span><span class="special">==</span></code>
             </li>
@@ -819,7 +839,7 @@
 <p>
           Use instead
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">thread</span><span class="special">::</span><span class="identifier">id</span><span class="special">::</span><span class="identifier">oprator</span><span class="special">==</span></code>
             </li>
@@ -881,7 +901,7 @@
 <p>
           The following nested typedefs are deprecated:
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mutex</span><span class="special">::</span><span class="identifier">scoped_lock</span></code>,
             </li>
@@ -1089,7 +1109,7 @@
           where
         </p>
 <pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">allocator_arg_t</span> <span class="special">{</span> <span class="special">};</span>
-<span class="identifier">constexpr</span> <span class="identifier">allocator_arg_t</span> <span class="identifier">allocator_arg</span> <span class="special">=</span> <span class="identifier">allocator_arg_t</span><span class="special">();</span>
+<span class="keyword">constexpr</span> <span class="identifier">allocator_arg_t</span> <span class="identifier">allocator_arg</span> <span class="special">=</span> <span class="identifier">allocator_arg_t</span><span class="special">();</span>
 
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">uses_allocator</span><span class="special">;</span>
 </pre>
@@ -1100,7 +1120,7 @@
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span>
 <span class="special">{</span>
   <span class="keyword">typedef</span> <span class="identifier">container</span><span class="special">::</span><span class="identifier">allocator_arg_t</span> <span class="identifier">allocator_arg_t</span><span class="special">;</span>
-  <span class="identifier">constexpr</span> <span class="identifier">allocator_arg_t</span> <span class="identifier">allocator_arg</span> <span class="special">=</span> <span class="special">{};</span>
+  <span class="keyword">constexpr</span> <span class="identifier">allocator_arg_t</span> <span class="identifier">allocator_arg</span> <span class="special">=</span> <span class="special">{};</span>
 
   <span class="keyword">namespace</span> <span class="identifier">container</span>
   <span class="special">{</span>
@@ -1212,7 +1232,7 @@
           </code> is defined Boost.Thread provides this C++ feature if the following
           are not defined
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               BOOST_NO_CXX11_VARIADIC_TEMPLATES
             </li>
@@ -1287,7 +1307,7 @@
           the Boost.Thread version. The default version is 2. In this case the following
           breaking or extending macros are defined if the opposite is not requested:
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
               <code class="computeroutput"><span class="identifier">BOOST_THREAD_PROVIDES_PROMISE_LAZY</span></code>
             </li></ul></div>
 <p>
@@ -1295,7 +1315,7 @@
           to 3. In this case the following breaking or extending macros are defined
           if the opposite is not requested:
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               Breaking change <code class="computeroutput"><span class="identifier">BOOST_THREAD_PROVIDES_EXPLICIT_LOCK_CONVERSION</span>
               </code>
@@ -1326,15 +1346,11 @@
             </li>
 </ul></div>
 <p>
-          The default value for <code class="computeroutput"><span class="identifier">BOOST_THREAD_VERSION</span></code>
-          will be changed to 3 since Boost 1.54.
-        </p>
-<p>
           The user can request the version 4 by defining <code class="computeroutput"><span class="identifier">BOOST_THREAD_VERSION</span></code>
           to 4. In this case the following breaking or extending macros are defined
           if the opposite is not requested:
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               Conformity &amp; Breaking change <code class="computeroutput"><span class="identifier">BOOST_THREAD_PROVIDES_SIGNATURE_PACKAGED_TASK</span>
               </code>
@@ -1353,17 +1369,13 @@
               Breaking change <code class="computeroutput"><span class="identifier">BOOST_THREAD_DONT_USE_DATETIME</span></code>
             </li>
 </ul></div>
-<p>
-          The default value for <code class="computeroutput"><span class="identifier">BOOST_THREAD_VERSION</span></code>
-          will be changed to 4 since Boost 1.56.
-        </p>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="thread.build.limitations"></a><a class="link" href="build.html#thread.build.limitations" title="Limitations">Limitations</a>
 </h3></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="build.html#thread.build.limitations.sun">SunPro</a></span></dt>
 <dt><span class="section"><a href="build.html#thread.build.limitations.vacpp">VACPP</a></span></dt>
 <dt><span class="section"><a href="build.html#thread.build.limitations.ce">WCE</a></span></dt>
@@ -1378,13 +1390,13 @@
 <p>
           If __SUNPRO_CC &lt; 0x5100 the library defines
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
               <code class="computeroutput"><span class="identifier">BOOST_THREAD_DONT_USE_MOVE</span></code>
             </li></ul></div>
 <p>
           If __SUNPRO_CC &lt; 0x5100 the library defines
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
               <code class="computeroutput"><span class="identifier">BOOST_THREAD_DONT_PROVIDE_FUTURE_CTOR_ALLOCATORS</span></code>
             </li></ul></div>
 </div>
@@ -1395,7 +1407,7 @@
 <p>
           If __IBMCPP__ &lt; 1100 the library defines
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><span class="identifier">BOOST_THREAD_DONT_USE_CHRONO</span></code>
             </li>
@@ -1414,7 +1426,7 @@
 <p>
           If _WIN32_WCE &amp;&amp; _WIN32_WCE==0x501 the library defines
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
               <code class="computeroutput"><span class="identifier">BOOST_THREAD_DONT_PROVIDE_FUTURE_CTOR_ALLOCATORS</span></code>
             </li></ul></div>
 </div>
@@ -1422,7 +1434,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2007 -11 Anthony Williams<br>Copyright &#169; 2011 -12 Vicente J. Botet Escriba<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2007 -11 Anthony Williams<br>Copyright &#169; 2011 -13 Vicente J. Botet Escriba<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

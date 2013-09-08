@@ -1,13 +1,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<title>rational_adapter</title>
+<title>rational_adaptor</title>
 <link rel="stylesheet" href="../../../../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Boost.Multiprecision">
 <link rel="up" href="../rational.html" title="Rational Number Types">
 <link rel="prev" href="br.html" title="Use With Boost.Rational">
-<link rel="next" href="../conversions.html" title="Constructing and Interconverting Between Number Types">
+<link rel="next" href="../misc.html" title="Miscellaneous Number Types.">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -20,11 +20,11 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="br.html"><img src="../../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../rational.html"><img src="../../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="../conversions.html"><img src="../../../../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="br.html"><img src="../../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../rational.html"><img src="../../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="../misc.html"><img src="../../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
-<div class="section">
+<div class="section boost_multiprecision_tut_rational_rational_adaptor">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="boost_multiprecision.tut.rational.rational_adapter"></a><a class="link" href="rational_adapter.html" title="rational_adapter">rational_adapter</a>
+<a name="boost_multiprecision.tut.rational.rational_adaptor"></a><a class="link" href="rational_adaptor.html" title="rational_adaptor">rational_adaptor</a>
 </h4></div></div></div>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">multiprecision</span><span class="special">{</span>
 
@@ -34,7 +34,7 @@
 <span class="special">}}</span>
 </pre>
 <p>
-          The class template <code class="computeroutput"><span class="identifier">rational_adapter</span></code>
+          The class template <code class="computeroutput"><span class="identifier">rational_adaptor</span></code>
           is a back-end for <code class="computeroutput"><span class="identifier">number</span></code>
           which converts any existing integer back-end into a rational-number back-end.
         </p>
@@ -43,7 +43,7 @@
           the use would be something like:
         </p>
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">number</span><span class="special">&lt;</span><span class="identifier">MyIntegerBackend</span><span class="special">&gt;</span>                    <span class="identifier">MyInt</span><span class="special">;</span>
-<span class="keyword">typedef</span> <span class="identifier">number</span><span class="special">&lt;</span><span class="identifier">rational_adapter</span><span class="special">&lt;</span><span class="identifier">MyIntegerBackend</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">MyRational</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">number</span><span class="special">&lt;</span><span class="identifier">rational_adaptor</span><span class="special">&lt;</span><span class="identifier">MyIntegerBackend</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">MyRational</span><span class="special">;</span>
 
 <span class="identifier">MyRational</span> <span class="identifier">r</span> <span class="special">=</span> <span class="number">2</span><span class="special">;</span>
 <span class="identifier">r</span> <span class="special">/=</span> <span class="number">3</span><span class="special">;</span>
@@ -61,7 +61,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="br.html"><img src="../../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../rational.html"><img src="../../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="../conversions.html"><img src="../../../../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="br.html"><img src="../../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../rational.html"><img src="../../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="../misc.html"><img src="../../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

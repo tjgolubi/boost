@@ -15,11 +15,13 @@
 #include <boost/random/mersenne_twister.hpp>
 #include "test.hpp"
 
-#if !defined(TEST_MPF_50) && !defined(TEST_MPF) && !defined(TEST_BACKEND) && !defined(TEST_MPZ) && !defined(TEST_CPP_DEC_FLOAT) && !defined(TEST_MPFR) && !defined(TEST_MPFR_50) && !defined(TEST_MPQ)
+#if !defined(TEST_MPF_50) && !defined(TEST_MPF) && !defined(TEST_BACKEND) && !defined(TEST_CPP_DEC_FLOAT) && !defined(TEST_MPFR) && !defined(TEST_MPFR_50) && !defined(TEST_MPFI_50) && !defined(TEST_FLOAT128)
 #  define TEST_MPF_50
 #  define TEST_MPFR_50
+#  define TEST_MPFI_50
 #  define TEST_BACKEND
 #  define TEST_CPP_DEC_FLOAT
+#  define TEST_FLOAT128
 
 #ifdef _MSC_VER
 #pragma message("CAUTION!!: No backend type specified so testing everything.... this will take some time!!")
@@ -36,11 +38,17 @@
 #ifdef TEST_MPFR_50
 #include <boost/multiprecision/mpfr.hpp>
 #endif
+#ifdef TEST_MPFI_50
+#include <boost/multiprecision/mpfi.hpp>
+#endif
 #ifdef TEST_BACKEND
 #include <boost/multiprecision/concepts/mp_number_archetypes.hpp>
 #endif
 #ifdef TEST_CPP_DEC_FLOAT
 #include <boost/multiprecision/cpp_dec_float.hpp>
+#endif
+#ifdef TEST_FLOAT128
+#include <boost/multiprecision/float128.hpp>
 #endif
 
 #ifdef BOOST_MSVC
@@ -72,7 +80,7 @@ T get_random()
 }
 
 template <class T, class U>
-void check_within_half(T a, U u)
+typename boost::disable_if_c<boost::multiprecision::is_interval_number<T>::value>::type check_within_half(T a, U u)
 {
    BOOST_MATH_STD_USING
    if(fabs(a-u) > 0.5f)
@@ -82,6 +90,23 @@ void check_within_half(T a, U u)
          << std::left << a << u << std::endl;
    }
    if((fabs(a - u) == 0.5f) && (fabs(static_cast<T>(u)) < fabs(a)))
+   {
+      BOOST_ERROR("Rounded result was towards zero with boost::round");
+      std::cerr << "Values were: " << std::setprecision(35) << std::setw(40)
+         << std::left << a << u << std::endl;
+   }
+}
+template <class T, class U>
+typename boost::enable_if_c<boost::multiprecision::is_interval_number<T>::value>::type check_within_half(T a, U u)
+{
+   BOOST_MATH_STD_USING
+   if(upper(T(fabs(a-u))) > 0.5f)
+   {
+      BOOST_ERROR("Rounded result differed by more than 0.5 from the original");
+      std::cerr << "Values were: " << std::setprecision(35) << std::setw(40)
+         << std::left << a << u << std::endl;
+   }
+   if((upper(T(fabs(a - u))) == 0.5f) && (fabs(static_cast<T>(u)) < fabs(a)))
    {
       BOOST_ERROR("Rounded result was towards zero with boost::round");
       std::cerr << "Values were: " << std::setprecision(35) << std::setw(40)
@@ -390,6 +415,10 @@ int main()
    test<boost::multiprecision::mpfr_float_50>();
    test<boost::multiprecision::mpfr_float_100>();
 #endif
+#ifdef TEST_MPFI_50
+   test<boost::multiprecision::mpfi_float_50>();
+   test<boost::multiprecision::mpfi_float_100>();
+#endif
 #ifdef TEST_CPP_DEC_FLOAT
    test<boost::multiprecision::cpp_dec_float_50>();
    test<boost::multiprecision::cpp_dec_float_100>();
@@ -408,10 +437,10 @@ int main()
 #ifdef TEST_BACKEND
    test<boost::multiprecision::number<boost::multiprecision::concepts::number_backend_float_architype> >();
 #endif
+#ifdef TEST_FLOAT128
+   test<boost::multiprecision::float128>();
+#endif
    return boost::report_errors();
 }
-
-
-
 
 

@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Class template move_insert_iterator</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="../move/reference.html#header.boost.move.iterator_hpp" title="Header &lt;boost/move/iterator.hpp&gt;">
 <link rel="prev" href="front_move_insert_iterator.html" title="Class template front_move_insert_iterator">
@@ -32,7 +32,9 @@
 <div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../move/reference.html#header.boost.move.iterator_hpp" title="Header &lt;boost/move/iterator.hpp&gt;">boost/move/iterator.hpp</a>&gt;
 
 </span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> C<span class="special">&gt;</span> 
-<span class="keyword">class</span> <a class="link" href="move_insert_iterator.html" title="Class template move_insert_iterator">move_insert_iterator</a> <span class="special">{</span>
+<span class="keyword">class</span> <a class="link" href="move_insert_iterator.html" title="Class template move_insert_iterator">move_insert_iterator</a> <span class="special">:</span>
+  <span class="keyword">public</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">output_iterator_tag</span><span class="special">,</span> <span class="keyword">void</span><span class="special">,</span> <span class="keyword">void</span><span class="special">,</span> <span class="keyword">void</span><span class="special">,</span> <span class="keyword">void</span> <span class="special">&gt;</span>
+<span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
   <span class="comment">// types</span>
   <span class="keyword">typedef</span> <span class="identifier">C</span>             <a name="boost.move_insert_iterator.container_type"></a><span class="identifier">container_type</span><span class="special">;</span>
@@ -40,35 +42,35 @@
   <span class="keyword">typedef</span> <span class="identifier">C</span><span class="special">::</span><span class="identifier">reference</span>  <a name="boost.move_insert_iterator.reference"></a><span class="identifier">reference</span><span class="special">;</span>     
 
   <span class="comment">// <a class="link" href="move_insert_iterator.html#boost.move_insert_iteratorconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <span class="keyword">explicit</span> <a class="link" href="move_insert_iterator.html#idp64113168-bb"><span class="identifier">move_insert_iterator</span></a><span class="special">(</span><span class="identifier">C</span> <span class="special">&amp;</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">C</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
-  move_insert_iterator&amp; <a class="link" href="move_insert_iterator.html#idp64114048-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
-  move_insert_iterator&amp; <a class="link" href="move_insert_iterator.html#idp64114448-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">BOOST_RV_REF</span><span class="special">(</span><span class="identifier">value_type</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="move_insert_iterator.html#idp90996832-bb"><span class="identifier">move_insert_iterator</span></a><span class="special">(</span><span class="identifier">C</span> <span class="special">&amp;</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">C</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
+  move_insert_iterator&amp; <a class="link" href="move_insert_iterator.html#idp90997712-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
+  move_insert_iterator&amp; <a class="link" href="move_insert_iterator.html#idp90982768-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">BOOST_RV_REF</span><span class="special">(</span><span class="identifier">value_type</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="move_insert_iterator.html#idp64111184-bb">public member functions</a></span>
-  <span class="identifier">move_insert_iterator</span> <span class="special">&amp;</span> <a class="link" href="move_insert_iterator.html#idp64111392-bb"><span class="keyword">operator</span><span class="special">*</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">move_insert_iterator</span> <span class="special">&amp;</span> <a class="link" href="move_insert_iterator.html#idp64111872-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">move_insert_iterator</span> <span class="special">&amp;</span> <a class="link" href="move_insert_iterator.html#idp64112352-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="move_insert_iterator.html#idp90994848-bb">public member functions</a></span>
+  <span class="identifier">move_insert_iterator</span> <span class="special">&amp;</span> <a class="link" href="move_insert_iterator.html#idp90995056-bb"><span class="keyword">operator</span><span class="special">*</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">move_insert_iterator</span> <span class="special">&amp;</span> <a class="link" href="move_insert_iterator.html#idp90995536-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">move_insert_iterator</span> <span class="special">&amp;</span> <a class="link" href="move_insert_iterator.html#idp90996016-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idp115442768"></a><h2>Description</h2>
+<a name="idp118689936"></a><h2>Description</h2>
 <div class="refsect2">
-<a name="idp115442976"></a><h3>
+<a name="idp118690144"></a><h3>
 <a name="boost.move_insert_iteratorconstruct-copy-destruct"></a><code class="computeroutput">move_insert_iterator</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="keyword">explicit</span> <a name="idp64113168-bb"></a><span class="identifier">move_insert_iterator</span><span class="special">(</span><span class="identifier">C</span> <span class="special">&amp;</span> x<span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">C</span><span class="special">::</span><span class="identifier">iterator</span> pos<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout">move_insert_iterator&amp; <a name="idp64114048-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">reference</span> x<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout">move_insert_iterator&amp; <a name="idp64114448-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">BOOST_RV_REF</span><span class="special">(</span><span class="identifier">value_type</span><span class="special">)</span> x<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">explicit</span> <a name="idp90996832-bb"></a><span class="identifier">move_insert_iterator</span><span class="special">(</span><span class="identifier">C</span> <span class="special">&amp;</span> x<span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">C</span><span class="special">::</span><span class="identifier">iterator</span> pos<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout">move_insert_iterator&amp; <a name="idp90997712-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">reference</span> x<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout">move_insert_iterator&amp; <a name="idp90982768-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">BOOST_RV_REF</span><span class="special">(</span><span class="identifier">value_type</span><span class="special">)</span> x<span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="idp115454128"></a><h3>
-<a name="idp64111184-bb"></a><code class="computeroutput">move_insert_iterator</code> public member functions</h3>
+<a name="idp118701296"></a><h3>
+<a name="idp90994848-bb"></a><code class="computeroutput">move_insert_iterator</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="identifier">move_insert_iterator</span> <span class="special">&amp;</span> <a name="idp64111392-bb"></a><span class="keyword">operator</span><span class="special">*</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">move_insert_iterator</span> <span class="special">&amp;</span> <a name="idp64111872-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">move_insert_iterator</span> <span class="special">&amp;</span> <a name="idp64112352-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">move_insert_iterator</span> <span class="special">&amp;</span> <a name="idp90995056-bb"></a><span class="keyword">operator</span><span class="special">*</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">move_insert_iterator</span> <span class="special">&amp;</span> <a name="idp90995536-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">move_insert_iterator</span> <span class="special">&amp;</span> <a name="idp90996016-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 </div>

@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Struct template member_value_traits</title>
 <link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="../../intrusive/reference.html#header.boost.intrusive.member_value_traits_hpp" title="Header &lt;boost/intrusive/member_value_traits.hpp&gt;">
 <link rel="prev" href="list_member_hook.html" title="Class template list_member_hook">
@@ -46,26 +46,26 @@
   <span class="keyword">typedef</span> <span class="identifier">value_type</span> <span class="special">&amp;</span>                                                         <a name="boost.intrusive.member_value_traits.reference"></a><span class="identifier">reference</span><span class="special">;</span>      
   <span class="keyword">typedef</span> <span class="keyword">const</span> <span class="identifier">value_type</span> <span class="special">&amp;</span>                                                   <a name="boost.intrusive.member_value_traits.const_reference"></a><span class="identifier">const_reference</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="member_value_traits.html#idp69094752-bb">public static functions</a></span>
-  <span class="keyword">static</span> <span class="identifier">node_ptr</span> <a class="link" href="member_value_traits.html#idp69094960-bb"><span class="identifier">to_node_ptr</span></a><span class="special">(</span><span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="identifier">const_node_ptr</span> <a class="link" href="member_value_traits.html#idp69095760-bb"><span class="identifier">to_node_ptr</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="identifier">pointer</span> <a class="link" href="member_value_traits.html#idp69096576-bb"><span class="identifier">to_value_ptr</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">node_ptr</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="identifier">const_pointer</span> <a class="link" href="member_value_traits.html#idp69097392-bb"><span class="identifier">to_value_ptr</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">const_node_ptr</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="member_value_traits.html#idp26204080-bb">public static functions</a></span>
+  <span class="keyword">static</span> <span class="identifier">node_ptr</span> <a class="link" href="member_value_traits.html#idp26204288-bb"><span class="identifier">to_node_ptr</span></a><span class="special">(</span><span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">const_node_ptr</span> <a class="link" href="member_value_traits.html#idp26205088-bb"><span class="identifier">to_node_ptr</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">pointer</span> <a class="link" href="member_value_traits.html#idp26205904-bb"><span class="identifier">to_value_ptr</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">node_ptr</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">const_pointer</span> <a class="link" href="member_value_traits.html#idp26206720-bb"><span class="identifier">to_value_ptr</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">const_node_ptr</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
 
   <span class="comment">// public data members</span>
   <span class="keyword">static</span> <span class="keyword">const</span> <span class="identifier">link_mode_type</span> <span class="identifier">link_mode</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idp94169920"></a><h2>Description</h2>
+<a name="idp95789216"></a><h2>Description</h2>
 <p>This value traits template is used to create value traits from user defined node traits where value_traits::value_type will store a node_traits::node </p>
 <div class="refsect2">
-<a name="idp94170416"></a><h3>
-<a name="idp69094752-bb"></a><code class="computeroutput">member_value_traits</code> public static functions</h3>
+<a name="idp95789712"></a><h3>
+<a name="idp26204080-bb"></a><code class="computeroutput">member_value_traits</code> public static functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="identifier">node_ptr</span> <a name="idp69094960-bb"></a><span class="identifier">to_node_ptr</span><span class="special">(</span><span class="identifier">reference</span> value<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="identifier">const_node_ptr</span> <a name="idp69095760-bb"></a><span class="identifier">to_node_ptr</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="identifier">pointer</span> <a name="idp69096576-bb"></a><span class="identifier">to_value_ptr</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">node_ptr</span> <span class="special">&amp;</span> n<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="identifier">const_pointer</span> <a name="idp69097392-bb"></a><span class="identifier">to_value_ptr</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">const_node_ptr</span> <span class="special">&amp;</span> n<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="identifier">node_ptr</span> <a name="idp26204288-bb"></a><span class="identifier">to_node_ptr</span><span class="special">(</span><span class="identifier">reference</span> value<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="identifier">const_node_ptr</span> <a name="idp26205088-bb"></a><span class="identifier">to_node_ptr</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="identifier">pointer</span> <a name="idp26205904-bb"></a><span class="identifier">to_value_ptr</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">node_ptr</span> <span class="special">&amp;</span> n<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="identifier">const_pointer</span> <a name="idp26206720-bb"></a><span class="identifier">to_value_ptr</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">const_node_ptr</span> <span class="special">&amp;</span> n<span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 </div>

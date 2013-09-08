@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>History</title>
 <link rel="stylesheet" href="../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Multiprecision">
 <link rel="up" href="../map.html" title="Roadmap">
 <link rel="prev" href="../map.html" title="Roadmap">
@@ -28,6 +28,61 @@
 </h3></div></div></div>
 <h5>
 <a name="boost_multiprecision.map.hist.h0"></a>
+        <span class="phrase"><a name="boost_multiprecision.map.hist.1_54"></a></span><a class="link" href="hist.html#boost_multiprecision.map.hist.1_54">1.54</a>
+      </h5>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+            <span class="bold"><strong>Breaking change</strong></span> renamed <code class="computeroutput"><span class="identifier">rational_adapter</span></code> to <code class="computeroutput"><span class="identifier">rational_adaptor</span></code>.
+          </li>
+<li class="listitem">
+            Add support for <a href="http://perso.ens-lyon.fr/nathalie.revol/software.html" target="_top">MPFI</a>.
+          </li>
+<li class="listitem">
+            Add logged_adaptor.
+          </li>
+<li class="listitem">
+            Add support for 128-bit floats via GCC's <code class="computeroutput"><span class="identifier">__float128</span></code>
+            or Intel's <code class="computeroutput"><span class="identifier">_Quad</span></code> data
+            types.
+          </li>
+<li class="listitem">
+            Add support for user-defined literals in cpp_int, improve <code class="computeroutput"><span class="keyword">constexpr</span></code> support.
+          </li>
+<li class="listitem">
+            Fixed bug in integer division of <code class="computeroutput"><span class="identifier">cpp_int</span></code>
+            that results in incorrect sign of <code class="computeroutput"><span class="identifier">cpp_int</span></code>
+            when both arguments are small enough to fit in a <code class="computeroutput"><span class="identifier">double_limb_type</span></code>.
+            See <a href="https://svn.boost.org/trac/boost/ticket/8126" target="_top">8126</a>.
+          </li>
+<li class="listitem">
+            Fixed bug in subtraction of a single limb in <code class="computeroutput"><span class="identifier">cpp_int</span></code>
+            that results in incorrect value when the result should have a 0 in the
+            last limb: <a href="https://svn.boost.org/trac/boost/ticket/8133" target="_top">8133</a>.
+          </li>
+<li class="listitem">
+            Fixed bug in <code class="computeroutput"><span class="identifier">cpp_int</span></code>
+            where division of 0 by something doesn't get zero in the result: <a href="https://svn.boost.org/trac/boost/ticket/8160" target="_top">8160</a>.
+          </li>
+<li class="listitem">
+            Fixed bug in some transcendental functions that caused incorrect return
+            values when variables are reused, for example with <code class="computeroutput"><span class="identifier">a</span>
+            <span class="special">=</span> <span class="identifier">pow</span><span class="special">(</span><span class="identifier">a</span><span class="special">,</span> <span class="identifier">b</span><span class="special">)</span></code>. See <a href="https://svn.boost.org/trac/boost/ticket/8326" target="_top">8326</a>.
+          </li>
+<li class="listitem">
+            Fixed some assignment operations in the mpfr and gmp backends to be safe
+            if the target has been moved from: <a href="https://svn.boost.org/trac/boost/ticket/8326" target="_top">8667</a>.
+          </li>
+<li class="listitem">
+            Fixed bug in <code class="computeroutput"><span class="identifier">cpp_int</span></code>
+            that gives incorrect answer for 0%N for large N: <a href="https://svn.boost.org/trac/boost/ticket/8670" target="_top">8670</a>.
+          </li>
+<li class="listitem">
+            Fixed set_precision in mpfr backend so it doesn't trample over an existing
+            value: <a href="https://svn.boost.org/trac/boost/ticket/8692" target="_top">8692</a>.
+          </li>
+</ul></div>
+<h5>
+<a name="boost_multiprecision.map.hist.h1"></a>
         <span class="phrase"><a name="boost_multiprecision.map.hist.1_53"></a></span><a class="link" href="hist.html#boost_multiprecision.map.hist.1_53">1.53</a>
       </h5>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
@@ -43,7 +98,7 @@
           </li>
 </ul></div>
 <h5>
-<a name="boost_multiprecision.map.hist.h1"></a>
+<a name="boost_multiprecision.map.hist.h2"></a>
         <span class="phrase"><a name="boost_multiprecision.map.hist.post_review_changes"></a></span><a class="link" href="hist.html#boost_multiprecision.map.hist.post_review_changes">Post
         review changes</a>
       </h5>
@@ -97,7 +152,7 @@
           </li>
 </ul></div>
 <h5>
-<a name="boost_multiprecision.map.hist.h2"></a>
+<a name="boost_multiprecision.map.hist.h3"></a>
         <span class="phrase"><a name="boost_multiprecision.map.hist.pre_review_history"></a></span><a class="link" href="hist.html#boost_multiprecision.map.hist.pre_review_history">Pre-review
         history</a>
       </h5>

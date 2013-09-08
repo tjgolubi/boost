@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Some basic explanations</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="../interprocess.html" title="Chapter&#160;13.&#160;Boost.Interprocess">
 <link rel="prev" href="quick_guide.html" title="Quick Guide for the Impatient">
@@ -26,7 +26,7 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="interprocess.some_basic_explanations"></a><a class="link" href="some_basic_explanations.html" title="Some basic explanations">Some basic explanations</a>
 </h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="some_basic_explanations.html#interprocess.some_basic_explanations.processes_and_threads">Processes
       And Threads</a></span></dt>
 <dt><span class="section"><a href="some_basic_explanations.html#interprocess.some_basic_explanations.sharing_information">Sharing
@@ -61,7 +61,7 @@
         running and each process has its own address space. To share information
         between processes we have several alternatives:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             Two processes share information using a <span class="bold"><strong>file</strong></span>.
             To access to the data, each process uses the usual file read/write mechanisms.
@@ -96,7 +96,7 @@
         In <span class="bold"><strong>Boost.Interprocess</strong></span>, we can have 3 types
         of persistence:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             <span class="bold"><strong>Process-persistence</strong></span>: The mechanism lasts
             until all the processes that have opened the mechanism close it, exit
@@ -290,7 +290,7 @@
         between UNIX systems. For this reason, <span class="bold"><strong>Boost.Interprocess</strong></span>
         limits this name to a C++ variable identifier or keyword:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             Starts with a letter, lowercase or uppercase, such as a letter from a
             to z or from A to Z. Examples: <span class="emphasis"><em>Sharedmemory, sharedmemory,

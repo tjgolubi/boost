@@ -2,7 +2,7 @@
 <!DOCTYPE boostbook PUBLIC "-//Boost//DTD BoostBook XML V1.0//EN"
   "http://www.boost.org/tools/boostbook/dtd/boostbook.dtd">
 <boostbook id="boost" xmlns:xi="http://www.w3.org/2001/XInclude"
-           last-revision="$Date: 2012-12-15 10:28:27 -0800 (Sat, 15 Dec 2012) $">
+           last-revision="$Date: 2013-05-20 21:51:00 -0700 (Mon, 20 May 2013) $">
   <title>The Boost C++ Libraries BoostBook Documentation Subset</title>
 
   <preface id="about">
@@ -189,7 +189,7 @@
      </libraryinfo>
    </library>
 
-   <xi:include href="container.xml"/>
+   <xi:include href="container.auto_index.docbook"/>
 
    <library name="Conversion" dirname="conversion" html-only="1"
             url="../../libs/conversion/index.html">
@@ -312,7 +312,7 @@
      </libraryinfo>
    </library>
 
-   <xi:include href="interprocess.xml"/>
+   <xi:include href="interprocess.auto_index.docbook"/>
 
    <library name="Interval" dirname="numeric/interval" html-only="1"
             url="../../libs/numeric/interval/doc/index.html">
@@ -335,7 +335,7 @@
      </libraryinfo>
    </library>
 
-   <xi:include href="intrusive.xml"/>
+   <xi:include href="intrusive.auto_index.docbook"/>
 
    <library name="I/O State Savers" dirname="io" html-only="1">
      <libraryinfo>
@@ -694,6 +694,8 @@
        <librarycategory name="category:data-structures"/>
      </libraryinfo>
    </library>
+    
+   <xi:include href="type_erasure.xml"/>
 
    <library name="Type Traits" dirname="type_traits" html-only="1">
      <libraryinfo>
@@ -769,5 +771,6 @@
     <xi:include href="../../tools/build/v2/doc/src/userman.xml"/>
   </part>
 </boostbook>
+
 
 

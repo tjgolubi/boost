@@ -468,16 +468,14 @@
 
     <!-- build -->
     <library name="build">
-        <test name="timedata">
-            <mark-failure>
-                <toolset name="msvc-7.1"/>
-                <toolset name="msvc-8.0"/>
-                <toolset name="msvc-9.0"/>
-                <note author="Vladimir Prus">
-                  See https://zigzag.lvk.cs.msu.su:7813/boost.build/ticket/218
-                </note>
-            </mark-failure>
-        </test>
+        <mark-expected-failures>
+            <test name="collect_debug_info"/>
+            <toolset name="*"/>
+            <note author="Jurko Gospodnetić">
+                Temporarily enabled and always failing test used for collecting
+                additional feedback from the testing site.
+            </note>
+        </mark-expected-failures>
     </library>
 
     <!-- chrono -->
@@ -5475,11 +5473,55 @@ This platform doesn't supports Boost.Chrono.
         </mark-expected-failures>
     </library>
 
+    <!-- tti -->
+    <library name="tti">
+      <mark-expected-failures>
+        <test name="test_has_mem_data2"/>
+        <test name="test_has_mem_fun_cv_fail2"/>
+        <test name="test_has_mem_fun_cv_fail4"/>
+        <test name="test_has_member "/>
+        <test name="test_has_member_compile"/>
+        <test name="test_has_member_cv "/>
+        <test name="test_has_member_cv_compile "/>
+        <toolset name="vacpp-12.1.0.1"/>
+        <note>These are all failures with Boost.FunctionTypes which TTI uses.</note>
+      </mark-expected-failures>
+    </library>
+  
     <!-- tuple -->
     <library name="tuple">
         <mark-unusable>
             <toolset name="sunpro-5_3-sunos"/>
         </mark-unusable>
+    </library>
+  
+    <!-- type_erasure -->
+    <library name="type_erasure">
+      <mark-unusable>
+        <toolset name="gcc-4.2.1"/>
+        <toolset name="gcc-4.4*"/>
+        <toolset name="gcc-mingw-4.4*"/>
+        <toolset name="darwin-4.2.1"/>
+        <note author="Steven Watanabe" refid="17"/>
+      </mark-unusable>
+      <mark-expected-failures>
+        <test name="test_add"/>
+        <test name="test_add_assign"/>
+        <test name="test_equal"/>
+        <test name="test_less"/>
+        <test name="test_construct"/>
+        <toolset name="msvc-8.0*"/>
+        <note author="Steven Watanabe">
+          SFINAE for the constructors of param doesn't work correctly on this compiler.
+          This affects free functions (including operators) with more than one
+          any argument and overloaded member functions.
+        </note>
+      </mark-expected-failures>
+      <mark-expected-failures reason="?">
+        <test name="test_free"/>
+        <toolset name="msvc-8.0"/>
+        <note>This looks like an instance of MSVC substituting int in a template-id.</note>
+      </mark-expected-failures>
     </library>
 
     <!-- type_traits -->

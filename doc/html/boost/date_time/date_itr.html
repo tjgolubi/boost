@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Class template date_itr</title>
 <link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="../../date_time/doxy.html#header.boost.date_time.date_iterator_hpp" title="Header &lt;boost/date_time/date_iterator.hpp&gt;">
 <link rel="prev" href="date_itr_base.html" title="Class template date_itr_base">
@@ -38,27 +38,27 @@
   <span class="keyword">typedef</span> <span class="identifier">date_type</span><span class="special">::</span><span class="identifier">duration_type</span> <a name="boost.date_time.date_itr.duration_type"></a><span class="identifier">duration_type</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="date_itr.html#boost.date_time.date_itrconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="date_itr.html#idp28035696-bb"><span class="identifier">date_itr</span></a><span class="special">(</span><span class="identifier">date_type</span><span class="special">,</span> <span class="keyword">int</span> <span class="special">=</span> <span class="number">1</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="date_itr.html#idp13484656-bb"><span class="identifier">date_itr</span></a><span class="special">(</span><span class="identifier">date_type</span><span class="special">,</span> <span class="keyword">int</span> <span class="special">=</span> <span class="number">1</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="date_itr.html#idp28036576-bb">private member functions</a></span>
-  <span class="identifier">duration_type</span> <a class="link" href="date_itr.html#idp28036784-bb"><span class="identifier">get_offset</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">date_type</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">duration_type</span> <a class="link" href="date_itr.html#idp28037600-bb"><span class="identifier">get_neg_offset</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">date_type</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="date_itr.html#idp13485536-bb">private member functions</a></span>
+  <span class="identifier">duration_type</span> <a class="link" href="date_itr.html#idp12430240-bb"><span class="identifier">get_offset</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">date_type</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">duration_type</span> <a class="link" href="date_itr.html#idp12431056-bb"><span class="identifier">get_neg_offset</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">date_type</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idp48978592"></a><h2>Description</h2>
+<a name="idp49290336"></a><h2>Description</h2>
 <div class="refsect2">
-<a name="idp48978800"></a><h3>
+<a name="idp49290544"></a><h3>
 <a name="boost.date_time.date_itrconstruct-copy-destruct"></a><code class="computeroutput">date_itr</code> 
         public
        construct/copy/destruct</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idp28035696-bb"></a><span class="identifier">date_itr</span><span class="special">(</span><span class="identifier">date_type</span> d<span class="special">,</span> <span class="keyword">int</span> factor <span class="special">=</span> <span class="number">1</span><span class="special">)</span><span class="special">;</span></pre></li></ol></div>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idp13484656-bb"></a><span class="identifier">date_itr</span><span class="special">(</span><span class="identifier">date_type</span> d<span class="special">,</span> <span class="keyword">int</span> factor <span class="special">=</span> <span class="number">1</span><span class="special">)</span><span class="special">;</span></pre></li></ol></div>
 </div>
 <div class="refsect2">
-<a name="idp48983296"></a><h3>
-<a name="idp28036576-bb"></a><code class="computeroutput">date_itr</code> private member functions</h3>
+<a name="idp49295008"></a><h3>
+<a name="idp13485536-bb"></a><code class="computeroutput">date_itr</code> private member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="identifier">duration_type</span> <a name="idp28036784-bb"></a><span class="identifier">get_offset</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">date_type</span> <span class="special">&amp;</span> current<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">duration_type</span> <a name="idp28037600-bb"></a><span class="identifier">get_neg_offset</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">date_type</span> <span class="special">&amp;</span> current<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">duration_type</span> <a name="idp12430240-bb"></a><span class="identifier">get_offset</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">date_type</span> <span class="special">&amp;</span> current<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">duration_type</span> <a name="idp12431056-bb"></a><span class="identifier">get_neg_offset</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">date_type</span> <span class="special">&amp;</span> current<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 </div>
